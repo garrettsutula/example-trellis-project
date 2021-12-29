@@ -1,0 +1,52 @@
+@startuml Network Diagram Baskets
+header Network Diagram
+title Baskets
+	node "Virtual Network" as Virtual_Network <<Domain>> {
+		node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
+			node "Redis Container" as Redis_Container <<Execution Environment>> {
+			}
+			node "Basket Container" as Basket_Container <<Execution Environment>> {
+			}
+		}
+	}
+@enduml
+
+''''''''''''''''''''''''''''''
+@startuml Deployment Diagram Baskets
+header Deployment Diagram
+title Baskets
+	node "Virtual Network" as Virtual_Network <<Domain>> {
+		node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
+			node "Redis Container" as Redis_Container <<Execution Environment>> {
+				database "Basket Redis Cache" as Basket_Redis_Cache <<Cache>>
+			}
+			queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
+			node "Basket Container" as Basket_Container <<Execution Environment>> {
+				component "Basket Service" as Basket_Service <<Service>>
+			}
+		}
+	}
+
+	Basket_Service -down-( Basket_Redis_Cache
+	Basket_Service -down-( Event_Bus_Pub_Sub
+@enduml
+
+''''''''''''''''''''''''''''''
+@startuml Component Diagram Baskets
+header Component Diagram
+title Baskets
+package "Baskets" as Baskets_package <<System>>{
+	component "Basket Service" as Basket_Service <<Service>>
+	database "Basket Redis Cache" as Basket_Redis_Cache <<Cache>>
+	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub
+	Basket_Service -down-( Basket_Redis_Cache
+	Basket_Service -down-( Event_Bus_Pub_Sub
+}
+@enduml
+
+''''''''''''''''''''''''''''''
+@startuml System Diagram Baskets
+header System Diagram
+title Baskets
+package "Baskets" as Baskets_package <<System>>
+@enduml
