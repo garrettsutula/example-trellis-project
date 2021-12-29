@@ -10,3 +10,19 @@ To get started using this project locally, follow these instructions:
 2. Install [TrellisUML](https://github.com/garrettsutula/trellis-uml) globally by running `npm i -g trellisuml`.
 3. Clone this repo and run `npm i` to install dependencies.
 4. Run `trellis build` to build the diagrams from `./src` using.
+
+## Example Diagrams
+
+### Deployment Diagram
+![Deployment Diagram Example](readme/Deployment%20Diagram%20Microsoft%20eShop%20System.png)
+
+### Component Diagram
+![Component Diagram Example](readme/Component%20Diagram%20Microsoft%20eShop%20System.png)
+
+### System Diagram
+![System Diagram Example](readme/System%20Diagram%20Microsoft%20eShop%20System.png)
+
+### Network Diagram
+![Network Diagram Example](readme/Network%20Diagram%20Microsoft%20eShop%20System.png)
+
+
