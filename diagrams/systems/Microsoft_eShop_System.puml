@@ -3,7 +3,7 @@ header Network Diagram
 title Microsoft eShop System
 	node "The Internet" as The_Internet <<Domain>> {
 		node "Mobile Device" as Mobile_Device <<Device>> {
-			node "Mobile OS\n(iOS, Android, Windows)" as Mobile_OS\niOS,_Android,_Windows <<Execution Environment>> {
+			node "Mobile OS\n(iOS, Android, Windows)" as Mobile_OSiOS_Android_Windows <<Execution Environment>> {
 			}
 		}
 		node "Personal Computer" as Personal_Computer <<Device>> {
@@ -17,13 +17,13 @@ title Microsoft eShop System
 			}
 			node "API Gateway Container" as API_Gateway_Container <<Execution Environment>> {
 			}
-			node "Identity Container" as Identity_Container <<Execution Environment>> {
+			node "Basket Container" as Basket_Container <<Execution Environment>> {
 			}
 			node "Catalog Container" as Catalog_Container <<Execution Environment>> {
 			}
-			node "Ordering Container" as Ordering_Container <<Execution Environment>> {
+			node "Identity Container" as Identity_Container <<Execution Environment>> {
 			}
-			node "Basket Container" as Basket_Container <<Execution Environment>> {
+			node "Ordering Container" as Ordering_Container <<Execution Environment>> {
 			}
 			node "MVC Container" as MVC_Container <<Execution Environment>> {
 			}
@@ -33,6 +33,9 @@ title Microsoft eShop System
 			}
 		}
 	}
+	Web_Browser -- Kubernetes_Cluster: Ports: 443\nProtcol:TCP
+	Mobile_OSiOS_Android_Windows -- Kubernetes_Cluster: Ports: 443\nProtcol:TCP
+	Kubernetes_Cluster -- SQL_Database_Server: Ports: 1443\nProtcol:TCP
 @enduml
 
 ''''''''''''''''''''''''''''''
@@ -41,7 +44,7 @@ header Deployment Diagram
 title Microsoft eShop System
 	node "The Internet" as The_Internet <<Domain>> {
 		node "Mobile Device" as Mobile_Device <<Device>> {
-			node "Mobile OS\n(iOS, Android, Windows)" as Mobile_OS\niOS,_Android,_Windows <<Execution Environment>> {
+			node "Mobile OS\n(iOS, Android, Windows)" as Mobile_OSiOS_Android_Windows <<Execution Environment>> {
 				boundary "eShop Mobile App" as eShop_Mobile_App <<UI>>
 			}
 		}
@@ -63,18 +66,18 @@ title Microsoft eShop System
 				interface "Web Shopping API" as Web_Shopping_API <<API>>
 			}
 			queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
-			node "Identity Container" as Identity_Container <<Execution Environment>> {
-				component "Identity Service" as Identity_Service <<Service>>
+			node "Basket Container" as Basket_Container <<Execution Environment>> {
+				component "Basket Service" as Basket_Service <<Service>>
 			}
 			node "Catalog Container" as Catalog_Container <<Execution Environment>> {
 				component "Catalog Service" as Catalog_Service <<Service>>
 			}
+			node "Identity Container" as Identity_Container <<Execution Environment>> {
+				component "Identity Service" as Identity_Service <<Service>>
+			}
 			node "Ordering Container" as Ordering_Container <<Execution Environment>> {
 				component "Ordering Service" as Ordering_Service <<Service>>
 				control "Ordering Background Tasks" as Ordering_Background_Tasks <<Processor>>
-			}
-			node "Basket Container" as Basket_Container <<Execution Environment>> {
-				component "Basket Service" as Basket_Service <<Service>>
 			}
 			node "MVC Container" as MVC_Container <<Execution Environment>> {
 				component "eShop Webapp MVC" as eShop_Webapp_MVC <<Service>>
@@ -82,8 +85,8 @@ title Microsoft eShop System
 		}
 		node "SQL Database Server" as SQL_Database_Server <<Device>> {
 			node "SQL RDBMS" as SQL_RDBMS <<Execution Environment>> {
-				database "Identity DB (SQL)" as Identity_DB_SQL <<Database>>
 				database "Catalog DB (SQL)" as Catalog_DB_SQL <<Database>>
+				database "Identity DB (SQL)" as Identity_DB_SQL <<Database>>
 				database "Ordering DB (SQL)" as Ordering_DB_SQL <<Database>>
 			}
 		}
