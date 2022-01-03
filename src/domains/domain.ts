@@ -1,16 +1,16 @@
-import { Domain, ExecutionEnvironment, Device } from "trellisuml";
+import { domain, device, executionEnvironment } from "trellisuml";
 
 // Client Infrastructure
-export const internet = new Domain("The Internet");
-export const clientMobile = new Device("Mobile Device", { parentComponent: internet });
-export const clientMobileOS = new ExecutionEnvironment("Mobile OS\\n(iOS, Android, Windows)", {parentComponent: clientMobile});
-export const clientComputer = new Device("Personal Computer", {parentComponent: internet });
-export const clientBrowser = new ExecutionEnvironment("Web Browser", { parentComponent: clientComputer });
+export const internet = domain("The Internet");
+export const clientMobile = device("Mobile Device", internet);
+export const clientMobileOS = executionEnvironment("Mobile OS\\n(iOS, Android, Windows)", clientMobile);
+export const clientComputer = device("Personal Computer", internet );
+export const clientBrowser = executionEnvironment("Web Browser", clientComputer );
 
 // Company Infrastructure
-export const virtualNetwork = new Domain("Virtual Network", { stereotype: "VPC" });
-export const k8sCluster = new ExecutionEnvironment("Kubernetes Cluster", {parentComponent: virtualNetwork });
-export const sqlDatabase = new Device("SQL Database Server", {parentComponent: virtualNetwork});
-export const sqlRdbms = new ExecutionEnvironment("SQL RDBMS", { parentComponent: sqlDatabase });
-export const redisContainer = new ExecutionEnvironment("Redis Container", { parentComponent: k8sCluster });
-export const apiGatewayContainer = new ExecutionEnvironment("API Gateway Container", { parentComponent: k8sCluster});
+export const virtualNetwork = domain({ label: "Virtual Network", stereotype: "VPC" });
+export const k8sCluster = executionEnvironment("Kubernetes Cluster", virtualNetwork);
+export const sqlDatabase = device("SQL Database Server", virtualNetwork);
+export const sqlRdbms = executionEnvironment("SQL RDBMS", sqlDatabase );
+export const redisContainer = executionEnvironment("Redis Container", k8sCluster);
+export const apiGatewayContainer = executionEnvironment("API Gateway Container", k8sCluster);

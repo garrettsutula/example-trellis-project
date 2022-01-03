@@ -1,26 +1,26 @@
-import { ExecutionEnvironment, Service, Database, Processor, System, Requires } from "trellisuml";
+import { executionEnvironment, service, database, processor, system, requires } from "trellisuml";
 import { k8sCluster, sqlRdbms } from "../domains/domain";
-import { queue as eventBus } from './eventbus_system';
+import { eventBus } from './eventbus_system';
 
-export const container = new ExecutionEnvironment("Ordering Container", { parentComponent: k8sCluster });
-export const service = new Service("Ordering Service", { parentComponent: container });
-export const processor = new Processor("Ordering Background Tasks", { parentComponent: container });
-export const database = new Database("Ordering DB (SQL)", { parentComponent: sqlRdbms });
+export const orderContainer = executionEnvironment("Ordering Container", k8sCluster);
+export const orderService = service("Ordering Service", orderContainer);
+export const orderProcessor = processor("Ordering Background Tasks", orderContainer);
+export const orderDatabase = database("Ordering DB (SQL)", sqlRdbms);
 
-export const relationships = {
-    orderingServiceToDb: new Requires(service, database),
-    orderingProcessorToDb: new Requires(processor, database),
-    orderingServiceToBus: new Requires(service, eventBus),
-};
+export const relationships = [
+    requires(orderService, orderDatabase),
+    requires(orderProcessor, orderDatabase),
+    requires(orderService, eventBus),
+];
 
-export const system = new System({
+export default system({
     name: "Ordering",
-    components: {
-        container,
-        service,
-        processor,
-        database,
+    components: [
+        orderContainer,
+        orderService,
+        orderProcessor,
+        orderDatabase,
         eventBus,
-    },
+    ],
     relationships,
 })

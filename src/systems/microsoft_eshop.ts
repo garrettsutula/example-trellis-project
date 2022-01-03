@@ -1,22 +1,21 @@
-import { ExecutionEnvironment, UI, Service, API, System, Requires } from "trellisuml";
-import { clientMobileOS, clientBrowser, k8sCluster, apiGatewayContainer } from "../domains/domain";
-import { service as idService, relationships as idRelationships } from './identity_system';
-import { service as catalogService, relationships as catalogRelationships } from './catalog_system';
-import { service as orderingService, relationships as orderingRelationships } from './ordering_system';
-import { service as basketService, relationships as basketRelationships } from './basket_system';
-import { identitySystem } from ".";
+import { executionEnvironment, ui, service, api, system, requires, connectsTo } from "trellisuml";
+import { clientMobileOS, clientBrowser, k8sCluster, apiGatewayContainer, sqlDatabase } from "../domains/domain";
+import { idService, relationships as idRelationships } from './identity_system';
+import { catalogService, relationships as catalogRelationships } from './catalog_system';
+import { orderService, relationships as orderingRelationships } from './ordering_system';
+import { basketService, relationships as basketRelationships } from './basket_system';
 
-const mobileApp = new UI("eShop Mobile App", { parentComponent: clientMobileOS });
-const spaWebApp = new UI("eShop SPA Webapp", { parentComponent: clientBrowser });
-const webApp = new UI("eShop Traditional Webapp", { parentComponent: clientBrowser });
-const webAppBffContainer = new ExecutionEnvironment("MVC Container", { parentComponent: k8sCluster });
-const webAppBff = new Service("eShop Webapp MVC", { parentComponent: webAppBffContainer });
-const mobileShoppingApi = new API("Mobile Shopping API", { parentComponent: apiGatewayContainer });
-const webShoppingApi = new API("Web Shopping API", { parentComponent: apiGatewayContainer });
+export const mobileApp = ui("eShop Mobile App", clientMobileOS);
+export const spaWebApp = ui("eShop SPA Webapp", clientBrowser);
+export const webApp = ui("eShop Traditional Webapp", clientBrowser);
+export const webAppBffContainer = executionEnvironment("MVC Container", k8sCluster);
+export const webAppBff = service("eShop Webapp MVC", webAppBffContainer);
+export const mobileShoppingApi = api("Mobile Shopping API", apiGatewayContainer);
+export const webShoppingApi = api("Web Shopping API", apiGatewayContainer);
 
-export const system = new System({
+export default system({
     name: 'Microsoft eShop System',
-    components: {
+    components: [
         mobileApp,
         spaWebApp,
         webApp,
@@ -26,25 +25,28 @@ export const system = new System({
         webShoppingApi,
         idService,
         catalogService,
-        orderingService,
+        orderService,
         basketService,
-    },
-    relationships: {
-        mobileToGateway: new Requires(mobileApp, mobileShoppingApi),
-        webAppToBff: new Requires(webApp, webAppBff),
-        bffToGateway: new Requires(webAppBff, webShoppingApi),
-        spaToGateway: new Requires(spaWebApp, webShoppingApi),
-        mShoppingToId: new Requires(mobileShoppingApi, idService),
-        mShoppingToCatalog: new Requires(mobileShoppingApi, catalogService),
-        mShoppingToOrdering: new Requires(mobileShoppingApi, orderingService),
-        mShoppingToBaskets: new Requires(mobileShoppingApi, basketService),
-        wShoppingToId: new Requires(webShoppingApi, idService),
-        wShoppingToCatalog: new Requires(webShoppingApi, catalogService),
-        wShoppingToOrdering: new Requires(webShoppingApi, orderingService),
-        wShoppingToBaskets: new Requires(webShoppingApi, basketService),
+    ],
+    relationships: [
+        requires(mobileApp, mobileShoppingApi),
+        requires(webApp, webAppBff),
+        requires(webAppBff, webShoppingApi),
+        requires(spaWebApp, webShoppingApi),
+        requires(mobileShoppingApi, idService),
+        requires(mobileShoppingApi, catalogService),
+        requires(mobileShoppingApi, orderService),
+        requires(mobileShoppingApi, basketService),
+        requires(webShoppingApi, idService),
+        requires(webShoppingApi, catalogService),
+        requires(webShoppingApi, orderService),
+        requires(webShoppingApi, basketService),
+        connectsTo(clientBrowser, k8sCluster, "Ports: 443\\nProtcol:TCP"),
+        connectsTo(clientMobileOS, k8sCluster, "Ports: 443\\nProtcol:TCP"),
+        connectsTo(k8sCluster, sqlDatabase, "Ports: 1443\\nProtcol:TCP"),
         ...idRelationships,
         ...catalogRelationships,
         ...orderingRelationships,
         ...basketRelationships,
-    }
+    ]
 })

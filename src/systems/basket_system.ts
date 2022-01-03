@@ -1,23 +1,23 @@
-import { ExecutionEnvironment, Service, Cache, System, Requires } from "trellisuml";
+import { executionEnvironment, service, cache, system, requires } from "trellisuml";
 import { k8sCluster, redisContainer } from "../domains/domain";
-import { queue as eventBus } from './eventbus_system';
+import { eventBus } from './eventbus_system';
 
-export const container = new ExecutionEnvironment("Basket Container", { parentComponent: k8sCluster });
-export const service = new Service("Basket Service", { parentComponent: container });
-export const cache = new Cache("Basket Redis Cache", { parentComponent: redisContainer });
+export const basketContainer = executionEnvironment("Basket Container", k8sCluster);
+export const basketService = service("Basket Service", basketContainer);
+export const basketCache = cache("Basket Redis Cache", redisContainer);
 
-export const relationships = {
-    basketServiceToCache: new Requires(service, cache),
-    basketServiceToBus: new Requires(service, eventBus),
-}
+export const relationships = [
+    requires(basketService, basketCache),
+    requires(basketService, eventBus),
+];
 
-export const system = new System({
+export default system({
     name: "Baskets",
-    components: {
-        container,
-        service,
-        cache,
+    components: [
+        basketContainer,
+        basketService,
+        basketCache,
         eventBus,
-    },
+    ],
     relationships,
 });

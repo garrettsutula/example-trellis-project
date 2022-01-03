@@ -1,23 +1,23 @@
-import { ExecutionEnvironment, Service, Database, System, Requires } from "trellisuml";
+import { executionEnvironment, service, database, system, requires } from "trellisuml";
 import { k8sCluster, sqlRdbms } from "../domains/domain";
-import { queue as eventBus } from './eventbus_system';
+import { eventBus } from './eventbus_system';
 
-export const container = new ExecutionEnvironment("Catalog Container", { parentComponent: k8sCluster });
-export const service = new Service("Catalog Service", { parentComponent: container });
-export const database = new Database("Catalog DB (SQL)", { parentComponent: sqlRdbms });
+export const catalogContainer = executionEnvironment("Catalog Container", k8sCluster);
+export const catalogService = service("Catalog Service", catalogContainer);
+export const catalogDatabase = database("Catalog DB (SQL)", sqlRdbms);
 
-export const relationships = {
-    catalogServiceToDb: new Requires(service, database),
-    catalogServiceToBus: new Requires(service, eventBus),
-};
+export const relationships = [
+    requires(catalogService, catalogDatabase),
+    requires(catalogService, eventBus),
+];
 
-export const system = new System({
+export default system({
     name: "Catalog",
-    components: {
-        container,
-        service,
-        database,
+    components: [
+        catalogContainer,
+        catalogService,
+        catalogDatabase,
         eventBus,
-    },
+    ],
     relationships,
 })

@@ -1,13 +1,12 @@
-import { System, Queue } from "trellisuml";
+import { system, queue } from "trellisuml";
 import { k8sCluster } from "../domains/domain";
 
-export const queue = new Queue("Event Bus (Pub/Sub)", { parentComponent: k8sCluster });
+export const eventBus = queue("Event Bus (Pub/Sub)", k8sCluster);
 
-export const system = new System({
+export default system({
     name: "Event Bus",
-    components: {
-        queue
-    },
-    relationships: {
-    }
+    components: [
+        eventBus
+    ],
+    relationships: []
 })
