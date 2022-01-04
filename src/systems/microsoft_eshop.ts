@@ -1,9 +1,9 @@
-import { executionEnvironment, ui, service, api, system, requires, connectsTo } from "trellisuml";
+import { executionEnvironment, ui, service, api, system, requires, connectsTo, uses } from "trellisuml";
 import { clientMobileOS, clientBrowser, k8sCluster, apiGatewayContainer, sqlDatabase } from "../domains/domain";
-import { idService, relationships as idRelationships } from './identity_system';
-import { catalogService, relationships as catalogRelationships } from './catalog_system';
-import { orderService, relationships as orderingRelationships } from './ordering_system';
-import { basketService, relationships as basketRelationships } from './basket_system';
+import { idService, componentRelationships as idRelationships } from './identity_system';
+import { catalogService, componentRelationships as catalogRelationships } from './catalog_system';
+import { orderService, componentRelationships as orderingRelationships } from './ordering_system';
+import { basketService, componentRelationships as basketRelationships, default as basketSystem } from './basket_system';
 
 export const mobileApp = ui("eShop Mobile App", clientMobileOS);
 export const spaWebApp = ui("eShop SPA Webapp", clientBrowser);
@@ -28,7 +28,7 @@ export default system({
         orderService,
         basketService,
     ],
-    relationships: [
+    componentRelationships: [
         requires(mobileApp, mobileShoppingApi),
         requires(webApp, webAppBff),
         requires(webAppBff, webShoppingApi),
@@ -48,5 +48,5 @@ export default system({
         ...catalogRelationships,
         ...orderingRelationships,
         ...basketRelationships,
-    ]
+    ],
 })

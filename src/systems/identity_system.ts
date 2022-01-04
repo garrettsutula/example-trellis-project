@@ -6,7 +6,7 @@ export const idContainer = executionEnvironment("Identity Container", k8sCluster
 export const idService = service("Identity Service", idContainer);
 export const idDatabase = database("Identity DB (SQL)", sqlRdbms);
 
-export const relationships = [
+export const componentRelationships = [
     requires(idService, idDatabase),
     requires(idService, eventBus),
 ];
@@ -19,5 +19,5 @@ export default system({
         idDatabase,
         eventBus,
     ],
-    relationships,
-})
+    componentRelationships,
+});

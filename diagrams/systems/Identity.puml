@@ -19,14 +19,21 @@ header Deployment Diagram
 title Identity
 	node "Virtual Network" as Virtual_Network <<Domain>> {
 		node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
-			queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
-			node "Identity Container" as Identity_Container <<Execution Environment>> {
-				component "Identity Service" as Identity_Service <<Service>>
+			package "Event Bus" as Event_Bus_Kubernetes_Cluster_package <<System>>{
+				queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
+			}
+			package "Identity" as Identity_Kubernetes_Cluster_package <<System>>{
+				node "Identity Container" as Identity_Container <<Execution Environment>> {
+					component "Identity Service" as Identity_Service <<Service>>
+				}
+
 			}
 		}
 		node "SQL Database Server" as SQL_Database_Server <<Device>> {
 			node "SQL RDBMS" as SQL_RDBMS <<Execution Environment>> {
-				database "Identity DB (SQL)" as Identity_DB_SQL <<Database>>
+				package "Identity" as Identity_SQL_RDBMS_package <<System>>{
+					database "Identity DB (SQL)" as Identity_DB_SQL <<Database>>
+				}
 			}
 		}
 	}
@@ -42,10 +49,12 @@ title Identity
 package "Identity" as Identity_package <<System>>{
 	component "Identity Service" as Identity_Service <<Service>>
 	database "Identity DB (SQL)" as Identity_DB_SQL <<Database>>
+}
+package "Event Bus" as Event_Bus_package <<System>>{
 	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub
+}
 	Identity_Service -down-( Identity_DB_SQL
 	Identity_Service -down-( Event_Bus_Pub_Sub
-}
 @enduml
 
 ''''''''''''''''''''''''''''''

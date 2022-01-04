@@ -18,11 +18,18 @@ title Baskets
 	node "Virtual Network" as Virtual_Network <<Domain>> {
 		node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
 			node "Redis Container" as Redis_Container <<Execution Environment>> {
-				database "Basket Redis Cache" as Basket_Redis_Cache <<Cache>>
+				package "Baskets" as Baskets_Redis_Container_package <<System>>{
+					database "Basket Redis Cache" as Basket_Redis_Cache <<Cache>>
+				}
 			}
-			queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
-			node "Basket Container" as Basket_Container <<Execution Environment>> {
-				component "Basket Service" as Basket_Service <<Service>>
+			package "Event Bus" as Event_Bus_Kubernetes_Cluster_package <<System>>{
+				queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
+			}
+			package "Baskets" as Baskets_Kubernetes_Cluster_package <<System>>{
+				node "Basket Container" as Basket_Container <<Execution Environment>> {
+					component "Basket Service" as Basket_Service <<Service>>
+				}
+
 			}
 		}
 	}
@@ -38,10 +45,12 @@ title Baskets
 package "Baskets" as Baskets_package <<System>>{
 	component "Basket Service" as Basket_Service <<Service>>
 	database "Basket Redis Cache" as Basket_Redis_Cache <<Cache>>
+}
+package "Event Bus" as Event_Bus_package <<System>>{
 	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub
+}
 	Basket_Service -down-( Basket_Redis_Cache
 	Basket_Service -down-( Event_Bus_Pub_Sub
-}
 @enduml
 
 ''''''''''''''''''''''''''''''

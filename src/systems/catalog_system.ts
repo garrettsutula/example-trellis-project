@@ -6,7 +6,7 @@ export const catalogContainer = executionEnvironment("Catalog Container", k8sClu
 export const catalogService = service("Catalog Service", catalogContainer);
 export const catalogDatabase = database("Catalog DB (SQL)", sqlRdbms);
 
-export const relationships = [
+export const componentRelationships = [
     requires(catalogService, catalogDatabase),
     requires(catalogService, eventBus),
 ];
@@ -19,5 +19,5 @@ export default system({
         catalogDatabase,
         eventBus,
     ],
-    relationships,
-})
+    componentRelationships,
+});

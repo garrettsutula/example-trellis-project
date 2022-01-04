@@ -14,7 +14,7 @@ export const apptService = service(`${name} Service`, appServer);
 export const apptDb = database(`${name} Database`, dbServer);
 
 // Defined as needed for every connection between systems. De-duplicated when rendered as puml.
-export const relationships = [
+export const componentRelationships = [
     connectsTo(apptApp, apptService),
     connectsTo(apptService, apptDb),
     connectsTo(clientDevice, appServer, "Ports: 443\\nProtcol:TCP"),
@@ -28,5 +28,5 @@ export default system({
         apptService,
         apptDb,
     ],
-    relationships,
+    componentRelationships,
 });

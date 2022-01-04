@@ -7,7 +7,7 @@ export const orderService = service("Ordering Service", orderContainer);
 export const orderProcessor = processor("Ordering Background Tasks", orderContainer);
 export const orderDatabase = database("Ordering DB (SQL)", sqlRdbms);
 
-export const relationships = [
+export const componentRelationships = [
     requires(orderService, orderDatabase),
     requires(orderProcessor, orderDatabase),
     requires(orderService, eventBus),
@@ -22,5 +22,5 @@ export default system({
         orderDatabase,
         eventBus,
     ],
-    relationships,
-})
+    componentRelationships,
+});

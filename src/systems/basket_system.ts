@@ -6,7 +6,7 @@ export const basketContainer = executionEnvironment("Basket Container", k8sClust
 export const basketService = service("Basket Service", basketContainer);
 export const basketCache = cache("Basket Redis Cache", redisContainer);
 
-export const relationships = [
+export const componentRelationships = [
     requires(basketService, basketCache),
     requires(basketService, eventBus),
 ];
@@ -19,5 +19,5 @@ export default system({
         basketCache,
         eventBus,
     ],
-    relationships,
+    componentRelationships,
 });

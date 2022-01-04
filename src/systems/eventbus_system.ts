@@ -8,5 +8,4 @@ export default system({
     components: [
         eventBus
     ],
-    relationships: []
 })
