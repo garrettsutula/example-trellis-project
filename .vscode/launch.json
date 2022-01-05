@@ -9,8 +9,13 @@
             "type": "node",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "runtimeExecutable": "trellis",
-            "runtimeArgs": ["build", "--inspect."]
+            "runtimeExecutable": "npx",
+            "runtimeArgs": ["trellis", "build", "--inspect"],
+            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/dist/**/*.js",
+                "${workspaceFolder}/node_modules/trellisuml/**/*.js",
+            ]
           }
     ]
 }
