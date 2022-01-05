@@ -26,7 +26,7 @@ title Event Bus
 header Component Diagram
 title Event Bus
 package "Event Bus" as Event_Bus_package <<System>>{
-	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub
+	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
 }
 @enduml
 

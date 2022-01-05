@@ -51,7 +51,7 @@ package "Catalog" as Catalog_package <<System>>{
 	database "Catalog DB (SQL)" as Catalog_DB_SQL <<Database>>
 }
 package "Event Bus" as Event_Bus_package <<System>>{
-	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub
+	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
 }
 	Catalog_Service -down-( Catalog_DB_SQL
 	Catalog_Service -down-( Event_Bus_Pub_Sub

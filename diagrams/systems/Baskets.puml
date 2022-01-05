@@ -47,7 +47,7 @@ package "Baskets" as Baskets_package <<System>>{
 	database "Basket Redis Cache" as Basket_Redis_Cache <<Cache>>
 }
 package "Event Bus" as Event_Bus_package <<System>>{
-	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub
+	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
 }
 	Basket_Service -down-( Basket_Redis_Cache
 	Basket_Service -down-( Event_Bus_Pub_Sub

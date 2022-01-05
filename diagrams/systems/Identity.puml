@@ -51,7 +51,7 @@ package "Identity" as Identity_package <<System>>{
 	database "Identity DB (SQL)" as Identity_DB_SQL <<Database>>
 }
 package "Event Bus" as Event_Bus_package <<System>>{
-	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub
+	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
 }
 	Identity_Service -down-( Identity_DB_SQL
 	Identity_Service -down-( Event_Bus_Pub_Sub
