@@ -1,2 +1,2 @@
-export * as systems from './systems/index';
-export * as domainComponents from './domains/index';
+export * as systems from './systems';
+export * as domainComponents from './domains';
