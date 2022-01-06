@@ -10,7 +10,7 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "runtimeExecutable": "npx",
-            "runtimeArgs": ["trellis", "build", "--inspect"],
+            "runtimeArgs": [ "trellis", "build", "--inspect"],
             "outFiles": ["${workspaceFolder}/dist/**/*.js"],
             "resolveSourceMapLocations": [
                 "${workspaceFolder}/dist/**/*.js",
