@@ -12,9 +12,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "trellisuml": "^0.5.11"
-  },
   "devDependencies": {
     "@swc/cli": "^0.1.55",
     "@swc/core": "^1.2.127",
@@ -22,5 +19,8 @@
     "chokidar-cli": "^3.0.0",
     "eslint": "^8.6.0",
     "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "trellisuml": "^0.5.12"
   }
 }
