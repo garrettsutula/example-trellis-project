@@ -21,6 +21,6 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
-    "trellisuml": "^0.5.12"
+    "trellisuml": "^0.6.1"
   }
 }

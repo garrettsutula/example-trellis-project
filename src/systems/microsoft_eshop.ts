@@ -1,4 +1,4 @@
-import { executionEnvironment, ui, service, api, system, requires, connectsTo } from "trellisuml";
+import { executionEnvironment, ui, service, api, system, requires, accesses } from "trellisuml";
 import { clientMobileOS, clientBrowser, k8sCluster, apiGatewayContainer, sqlDatabase } from "../domains/domain";
 import { idService, componentRelationships as idRelationships } from './identity_system';
 import { catalogService, componentRelationships as catalogRelationships } from './catalog_system';
@@ -41,9 +41,9 @@ export default system({
         requires(webShoppingApi, catalogService),
         requires(webShoppingApi, orderService),
         requires(webShoppingApi, basketService),
-        connectsTo(clientBrowser, k8sCluster, "Ports: 443\\nProtcol:TCP"),
-        connectsTo(clientMobileOS, k8sCluster, "Ports: 443\\nProtcol:TCP"),
-        connectsTo(k8sCluster, sqlDatabase, "Ports: 1443\\nProtcol:TCP"),
+        accesses(clientBrowser, k8sCluster, "Ports: 443\\nProtcol:TCP"),
+        accesses(clientMobileOS, k8sCluster, "Ports: 443\\nProtcol:TCP"),
+        accesses(k8sCluster, sqlDatabase, "Ports: 1443\\nProtcol:TCP"),
         ...idRelationships,
         ...catalogRelationships,
         ...orderingRelationships,
