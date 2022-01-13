@@ -1,132 +1,74 @@
 @startuml Network Diagram Microsoft eShop System
 header Network Diagram
 title Microsoft eShop System
-	node "The Internet" as The_Internet <<Domain>> {
-		node "Mobile Device" as Mobile_Device <<Device>> {
-			node "Mobile OS\n(iOS, Android, Windows)" as Mobile_OSiOS_Android_Windows <<Execution Environment>> {
-			}
-		}
-		node "Personal Computer" as Personal_Computer <<Device>> {
-			node "Web Browser" as Web_Browser <<Execution Environment>> {
-			}
+node "The Internet" as The_Internet <<Domain>> {
+	node "Mobile Device" as Mobile_Device <<Device>> {
+		node "Mobile OS\n(iOS, Android, Windows)" as Mobile_OSiOS_Android_Windows <<Execution Environment>> {
 		}
 	}
-	node "Virtual Network" as Virtual_Network <<Domain>> {
-		node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
-			node "Redis Container" as Redis_Container <<Execution Environment>> {
-			}
-			node "API Gateway Container" as API_Gateway_Container <<Execution Environment>> {
-			}
-			node "Basket Container" as Basket_Container <<Execution Environment>> {
-			}
-			node "Catalog Container" as Catalog_Container <<Execution Environment>> {
-			}
-			node "Identity Container" as Identity_Container <<Execution Environment>> {
-			}
-			node "Ordering Container" as Ordering_Container <<Execution Environment>> {
-			}
-			node "MVC Container" as MVC_Container <<Execution Environment>> {
-			}
-		}
-		node "SQL Database Server" as SQL_Database_Server <<Device>> {
-			node "SQL RDBMS" as SQL_RDBMS <<Execution Environment>> {
-			}
+	node "Personal Computer" as Personal_Computer <<Device>> {
+		node "Web Browser" as Web_Browser <<Execution Environment>> {
 		}
 	}
-	Web_Browser -- Kubernetes_Cluster: Ports: 443\nProtcol:TCP
-	Mobile_OSiOS_Android_Windows -- Kubernetes_Cluster: Ports: 443\nProtcol:TCP
-	Kubernetes_Cluster -- SQL_Database_Server: Ports: 1443\nProtcol:TCP
+}
+node "Virtual Network" as Virtual_Network <<Domain>> {
+	node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
+		node "API Gateway Container" as API_Gateway_Container <<Execution Environment>> {
+		}
+		node "Basket Container" as Basket_Container <<Execution Environment>> {
+		}
+		node "Catalog Container" as Catalog_Container <<Execution Environment>> {
+		}
+		node "Identity Container" as Identity_Container <<Execution Environment>> {
+		}
+		node "Ordering Container" as Ordering_Container <<Execution Environment>> {
+		}
+		node "MVC Container" as MVC_Container <<Execution Environment>> {
+		}
+	}
+}
 @enduml
 
 ''''''''''''''''''''''''''''''
 @startuml Deployment Diagram Microsoft eShop System
 header Deployment Diagram
 title Microsoft eShop System
-	node "The Internet" as The_Internet <<Domain>> {
-		node "Mobile Device" as Mobile_Device <<Device>> {
-			node "Mobile OS\n(iOS, Android, Windows)" as Mobile_OSiOS_Android_Windows <<Execution Environment>> {
-				package "Microsoft eShop System" as Microsoft_eShop_System_Mobile_OSiOS_Android_Windows_package <<System>>{
-					boundary "eShop Mobile App" as eShop_Mobile_App <<UI>>
-				}
-			}
-		}
-		node "Personal Computer" as Personal_Computer <<Device>> {
-			node "Web Browser" as Web_Browser <<Execution Environment>> {
-				package "Microsoft eShop System" as Microsoft_eShop_System_Web_Browser_package <<System>>{
-					boundary "eShop SPA Webapp" as eShop_SPA_Webapp <<UI>>
-				}
-				package "Microsoft eShop System" as Microsoft_eShop_System_Web_Browser_package <<System>>{
-					boundary "eShop Traditional Webapp" as eShop_Traditional_Webapp <<UI>>
-				}
-			}
+node "The Internet" as The_Internet <<Domain>> {
+	node "Mobile Device" as Mobile_Device <<Device>> {
+		node "Mobile OS\n(iOS, Android, Windows)" as Mobile_OSiOS_Android_Windows <<Execution Environment>> {
+			boundary "eShop Mobile App" as eShop_Mobile_App <<UI>>
 		}
 	}
-
-	node "Virtual Network" as Virtual_Network <<Domain>> {
-		node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
-			node "Redis Container" as Redis_Container <<Execution Environment>> {
-				package "Baskets" as Baskets_Redis_Container_package <<System>>{
-					database "Basket Redis Cache" as Basket_Redis_Cache <<Cache>>
-				}
-			}
-			node "API Gateway Container" as API_Gateway_Container <<Execution Environment>> {
-				package "Microsoft eShop System" as Microsoft_eShop_System_API_Gateway_Container_package <<System>>{
-					interface "Mobile Shopping API" as Mobile_Shopping_API <<API>>
-				}
-				package "Microsoft eShop System" as Microsoft_eShop_System_API_Gateway_Container_package <<System>>{
-					interface "Web Shopping API" as Web_Shopping_API <<API>>
-				}
-			}
-			package "Event Bus" as Event_Bus_Kubernetes_Cluster_package <<System>>{
-				queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
-			}
-			package "Baskets" as Baskets_Kubernetes_Cluster_package <<System>>{
-				node "Basket Container" as Basket_Container <<Execution Environment>> {
-					component "Basket Service" as Basket_Service <<Service>>
-				}
-
-			}
-			package "Catalog" as Catalog_Kubernetes_Cluster_package <<System>>{
-				node "Catalog Container" as Catalog_Container <<Execution Environment>> {
-					component "Catalog Service" as Catalog_Service <<Service>>
-				}
-
-			}
-			package "Identity" as Identity_Kubernetes_Cluster_package <<System>>{
-				node "Identity Container" as Identity_Container <<Execution Environment>> {
-					component "Identity Service" as Identity_Service <<Service>>
-				}
-
-			}
-			package "Ordering" as Ordering_Kubernetes_Cluster_package <<System>>{
-				node "Ordering Container" as Ordering_Container <<Execution Environment>> {
-					component "Ordering Service" as Ordering_Service <<Service>>
-					control "Ordering Background Tasks" as Ordering_Background_Tasks <<Processor>>
-				}
-
-			}
-			package "Microsoft eShop System" as Microsoft_eShop_System_Kubernetes_Cluster_package <<System>>{
-				node "MVC Container" as MVC_Container <<Execution Environment>> {
-					component "eShop Webapp MVC" as eShop_Webapp_MVC <<Service>>
-				}
-
-			}
-		}
-		node "SQL Database Server" as SQL_Database_Server <<Device>> {
-			node "SQL RDBMS" as SQL_RDBMS <<Execution Environment>> {
-				package "Catalog" as Catalog_SQL_RDBMS_package <<System>>{
-					database "Catalog DB (SQL)" as Catalog_DB_SQL <<Database>>
-				}
-				package "Identity" as Identity_SQL_RDBMS_package <<System>>{
-					database "Identity DB (SQL)" as Identity_DB_SQL <<Database>>
-				}
-				package "Ordering" as Ordering_SQL_RDBMS_package <<System>>{
-					database "Ordering DB (SQL)" as Ordering_DB_SQL <<Database>>
-				}
-			}
+	node "Personal Computer" as Personal_Computer <<Device>> {
+		node "Web Browser" as Web_Browser <<Execution Environment>> {
+			boundary "eShop SPA Webapp" as eShop_SPA_Webapp <<UI>>
+			boundary "eShop Traditional Webapp" as eShop_Traditional_Webapp <<UI>>
 		}
 	}
-
+}
+node "Virtual Network" as Virtual_Network <<Domain>> {
+	node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
+		node "API Gateway Container" as API_Gateway_Container <<Execution Environment>> {
+			interface "Mobile Shopping API" as Mobile_Shopping_API
+			interface "Web Shopping API" as Web_Shopping_API
+		}
+		node "Basket Container" as Basket_Container <<Execution Environment>> {
+			component "Basket Service" as Basket_Service <<Service>>
+		}
+		node "Catalog Container" as Catalog_Container <<Execution Environment>> {
+			component "Catalog Service" as Catalog_Service <<Service>>
+		}
+		node "Identity Container" as Identity_Container <<Execution Environment>> {
+			component "Identity Service" as Identity_Service <<Service>>
+		}
+		node "Ordering Container" as Ordering_Container <<Execution Environment>> {
+			component "Ordering Service" as Ordering_Service <<Service>>
+		}
+		node "MVC Container" as MVC_Container <<Execution Environment>> {
+			component "eShop Webapp MVC" as eShop_Webapp_MVC <<Service>>
+		}
+	}
+}
 	eShop_Mobile_App -down-( Mobile_Shopping_API
 	eShop_Traditional_Webapp -down-( eShop_Webapp_MVC
 	eShop_Webapp_MVC -down-( Web_Shopping_API
@@ -139,15 +81,6 @@ title Microsoft eShop System
 	Web_Shopping_API -down-( Catalog_Service
 	Web_Shopping_API -down-( Ordering_Service
 	Web_Shopping_API -down-( Basket_Service
-	Identity_Service -down-( Identity_DB_SQL
-	Identity_Service -down-( Event_Bus_Pub_Sub
-	Catalog_Service -down-( Catalog_DB_SQL
-	Catalog_Service -down-( Event_Bus_Pub_Sub
-	Ordering_Service -down-( Ordering_DB_SQL
-	Ordering_Background_Tasks -down-( Ordering_DB_SQL
-	Ordering_Service -down-( Event_Bus_Pub_Sub
-	Basket_Service -down-( Basket_Redis_Cache
-	Basket_Service -down-( Event_Bus_Pub_Sub
 @enduml
 
 ''''''''''''''''''''''''''''''
@@ -161,26 +94,10 @@ package "Microsoft eShop System" as Microsoft_eShop_System_package <<System>>{
 	component "eShop Webapp MVC" as eShop_Webapp_MVC <<Service>>
 	interface "Mobile Shopping API" as Mobile_Shopping_API
 	interface "Web Shopping API" as Web_Shopping_API
-}
-package "Identity" as Identity_package <<System>>{
 	component "Identity Service" as Identity_Service <<Service>>
-	database "Identity DB (SQL)" as Identity_DB_SQL <<Database>>
-}
-package "Catalog" as Catalog_package <<System>>{
 	component "Catalog Service" as Catalog_Service <<Service>>
-	database "Catalog DB (SQL)" as Catalog_DB_SQL <<Database>>
-}
-package "Ordering" as Ordering_package <<System>>{
 	component "Ordering Service" as Ordering_Service <<Service>>
-	database "Ordering DB (SQL)" as Ordering_DB_SQL <<Database>>
-	control "Ordering Background Tasks" as Ordering_Background_Tasks <<Processor>>
-}
-package "Baskets" as Baskets_package <<System>>{
 	component "Basket Service" as Basket_Service <<Service>>
-	database "Basket Redis Cache" as Basket_Redis_Cache <<Cache>>
-}
-package "Event Bus" as Event_Bus_package <<System>>{
-	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
 }
 	eShop_Mobile_App -down-( Mobile_Shopping_API
 	eShop_Traditional_Webapp -down-( eShop_Webapp_MVC
@@ -194,20 +111,4 @@ package "Event Bus" as Event_Bus_package <<System>>{
 	Web_Shopping_API -down-( Catalog_Service
 	Web_Shopping_API -down-( Ordering_Service
 	Web_Shopping_API -down-( Basket_Service
-	Identity_Service -down-( Identity_DB_SQL
-	Identity_Service -down-( Event_Bus_Pub_Sub
-	Catalog_Service -down-( Catalog_DB_SQL
-	Catalog_Service -down-( Event_Bus_Pub_Sub
-	Ordering_Service -down-( Ordering_DB_SQL
-	Ordering_Background_Tasks -down-( Ordering_DB_SQL
-	Ordering_Service -down-( Event_Bus_Pub_Sub
-	Basket_Service -down-( Basket_Redis_Cache
-	Basket_Service -down-( Event_Bus_Pub_Sub
-@enduml
-
-''''''''''''''''''''''''''''''
-@startuml System Diagram Microsoft eShop System
-header System Diagram
-title Microsoft eShop System
-package "Microsoft eShop System" as Microsoft_eShop_System_package <<System>>
 @enduml

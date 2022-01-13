@@ -1,24 +1,21 @@
 @startuml Network Diagram Event Bus
 header Network Diagram
 title Event Bus
-	node "Virtual Network" as Virtual_Network <<Domain>> {
-		node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
-		}
+node "Virtual Network" as Virtual_Network <<Domain>> {
+	node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
 	}
+}
 @enduml
 
 ''''''''''''''''''''''''''''''
 @startuml Deployment Diagram Event Bus
 header Deployment Diagram
 title Event Bus
-	node "Virtual Network" as Virtual_Network <<Domain>> {
-		node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
-			package "Event Bus" as Event_Bus_Kubernetes_Cluster_package <<System>>{
-				queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
-			}
-		}
+node "Virtual Network" as Virtual_Network <<Domain>> {
+	node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
+		queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
 	}
-
+}
 @enduml
 
 ''''''''''''''''''''''''''''''
@@ -28,11 +25,4 @@ title Event Bus
 package "Event Bus" as Event_Bus_package <<System>>{
 	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
 }
-@enduml
-
-''''''''''''''''''''''''''''''
-@startuml System Diagram Event Bus
-header System Diagram
-title Event Bus
-package "Event Bus" as Event_Bus_package <<System>>
 @enduml

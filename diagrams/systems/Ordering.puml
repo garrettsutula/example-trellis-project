@@ -1,44 +1,36 @@
 @startuml Network Diagram Ordering
 header Network Diagram
 title Ordering
-	node "Virtual Network" as Virtual_Network <<Domain>> {
-		node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
-			node "Ordering Container" as Ordering_Container <<Execution Environment>> {
-			}
-		}
-		node "SQL Database Server" as SQL_Database_Server <<Device>> {
-			node "SQL RDBMS" as SQL_RDBMS <<Execution Environment>> {
-			}
+node "Virtual Network" as Virtual_Network <<Domain>> {
+	node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
+		node "Ordering Container" as Ordering_Container <<Execution Environment>> {
 		}
 	}
+	node "SQL Database Server" as SQL_Database_Server <<Device>> {
+		node "SQL RDBMS" as SQL_RDBMS <<Execution Environment>> {
+		}
+	}
+}
 @enduml
 
 ''''''''''''''''''''''''''''''
 @startuml Deployment Diagram Ordering
 header Deployment Diagram
 title Ordering
-	node "Virtual Network" as Virtual_Network <<Domain>> {
-		node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
-			package "Event Bus" as Event_Bus_Kubernetes_Cluster_package <<System>>{
-				queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
-			}
-			package "Ordering" as Ordering_Kubernetes_Cluster_package <<System>>{
-				node "Ordering Container" as Ordering_Container <<Execution Environment>> {
-					component "Ordering Service" as Ordering_Service <<Service>>
-					control "Ordering Background Tasks" as Ordering_Background_Tasks <<Processor>>
-				}
-
-			}
-		}
-		node "SQL Database Server" as SQL_Database_Server <<Device>> {
-			node "SQL RDBMS" as SQL_RDBMS <<Execution Environment>> {
-				package "Ordering" as Ordering_SQL_RDBMS_package <<System>>{
-					database "Ordering DB (SQL)" as Ordering_DB_SQL <<Database>>
-				}
-			}
+node "Virtual Network" as Virtual_Network <<Domain>> {
+	node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
+		queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
+		node "Ordering Container" as Ordering_Container <<Execution Environment>> {
+			component "Ordering Service" as Ordering_Service <<Service>>
+			control "Ordering Background Tasks" as Ordering_Background_Tasks <<Processor>>
 		}
 	}
-
+	node "SQL Database Server" as SQL_Database_Server <<Device>> {
+		node "SQL RDBMS" as SQL_RDBMS <<Execution Environment>> {
+			database "Ordering DB (SQL)" as Ordering_DB_SQL <<Database>>
+		}
+	}
+}
 	Ordering_Service -down-( Ordering_DB_SQL
 	Ordering_Background_Tasks -down-( Ordering_DB_SQL
 	Ordering_Service -down-( Event_Bus_Pub_Sub
@@ -52,18 +44,9 @@ package "Ordering" as Ordering_package <<System>>{
 	component "Ordering Service" as Ordering_Service <<Service>>
 	control "Ordering Background Tasks" as Ordering_Background_Tasks <<Processor>>
 	database "Ordering DB (SQL)" as Ordering_DB_SQL <<Database>>
-}
-package "Event Bus" as Event_Bus_package <<System>>{
 	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
 }
 	Ordering_Service -down-( Ordering_DB_SQL
 	Ordering_Background_Tasks -down-( Ordering_DB_SQL
 	Ordering_Service -down-( Event_Bus_Pub_Sub
-@enduml
-
-''''''''''''''''''''''''''''''
-@startuml System Diagram Ordering
-header System Diagram
-title Ordering
-package "Ordering" as Ordering_package <<System>>
 @enduml

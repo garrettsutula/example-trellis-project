@@ -1,43 +1,35 @@
 @startuml Network Diagram Catalog
 header Network Diagram
 title Catalog
-	node "Virtual Network" as Virtual_Network <<Domain>> {
-		node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
-			node "Catalog Container" as Catalog_Container <<Execution Environment>> {
-			}
-		}
-		node "SQL Database Server" as SQL_Database_Server <<Device>> {
-			node "SQL RDBMS" as SQL_RDBMS <<Execution Environment>> {
-			}
+node "Virtual Network" as Virtual_Network <<Domain>> {
+	node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
+		node "Catalog Container" as Catalog_Container <<Execution Environment>> {
 		}
 	}
+	node "SQL Database Server" as SQL_Database_Server <<Device>> {
+		node "SQL RDBMS" as SQL_RDBMS <<Execution Environment>> {
+		}
+	}
+}
 @enduml
 
 ''''''''''''''''''''''''''''''
 @startuml Deployment Diagram Catalog
 header Deployment Diagram
 title Catalog
-	node "Virtual Network" as Virtual_Network <<Domain>> {
-		node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
-			package "Event Bus" as Event_Bus_Kubernetes_Cluster_package <<System>>{
-				queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
-			}
-			package "Catalog" as Catalog_Kubernetes_Cluster_package <<System>>{
-				node "Catalog Container" as Catalog_Container <<Execution Environment>> {
-					component "Catalog Service" as Catalog_Service <<Service>>
-				}
-
-			}
-		}
-		node "SQL Database Server" as SQL_Database_Server <<Device>> {
-			node "SQL RDBMS" as SQL_RDBMS <<Execution Environment>> {
-				package "Catalog" as Catalog_SQL_RDBMS_package <<System>>{
-					database "Catalog DB (SQL)" as Catalog_DB_SQL <<Database>>
-				}
-			}
+node "Virtual Network" as Virtual_Network <<Domain>> {
+	node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
+		queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
+		node "Catalog Container" as Catalog_Container <<Execution Environment>> {
+			component "Catalog Service" as Catalog_Service <<Service>>
 		}
 	}
-
+	node "SQL Database Server" as SQL_Database_Server <<Device>> {
+		node "SQL RDBMS" as SQL_RDBMS <<Execution Environment>> {
+			database "Catalog DB (SQL)" as Catalog_DB_SQL <<Database>>
+		}
+	}
+}
 	Catalog_Service -down-( Catalog_DB_SQL
 	Catalog_Service -down-( Event_Bus_Pub_Sub
 @enduml
@@ -49,17 +41,8 @@ title Catalog
 package "Catalog" as Catalog_package <<System>>{
 	component "Catalog Service" as Catalog_Service <<Service>>
 	database "Catalog DB (SQL)" as Catalog_DB_SQL <<Database>>
-}
-package "Event Bus" as Event_Bus_package <<System>>{
 	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
 }
 	Catalog_Service -down-( Catalog_DB_SQL
 	Catalog_Service -down-( Event_Bus_Pub_Sub
-@enduml
-
-''''''''''''''''''''''''''''''
-@startuml System Diagram Catalog
-header System Diagram
-title Catalog
-package "Catalog" as Catalog_package <<System>>
 @enduml
