@@ -13,9 +13,14 @@ header Deployment Diagram
 title Event Bus
 node "Virtual Network" as Virtual_Network <<Domain>> {
 	node "Kubernetes Cluster" as Kubernetes_Cluster <<Execution Environment>> {
-		queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
+		queue "Event Bus (Pub/Sub)" as Event_Bus_Event_Bus_Pub_Sub <<Queue>> {
+			interface "subscribe" as Event_Bus_subscribe
+			interface "publish" as Event_Bus_publish
+		}
 	}
 }
+	Event_Bus_Event_Bus_Pub_Sub -up- Event_Bus_publish: <<Provides>>
+	Event_Bus_Event_Bus_Pub_Sub -up- Event_Bus_subscribe: <<Provides>>
 @enduml
 
 ''''''''''''''''''''''''''''''
@@ -23,6 +28,13 @@ node "Virtual Network" as Virtual_Network <<Domain>> {
 header Component Diagram
 title Event Bus
 package "Event Bus" as Event_Bus_package <<System>>{
-	queue "Event Bus (Pub/Sub)" as Event_Bus_Pub_Sub <<Queue>>
+	queue "Event Bus (Pub/Sub)" as Event_Bus_Event_Bus_Pub_Sub <<Queue>> {
+		interface "subscribe" as Event_Bus_subscribe
+		interface "publish" as Event_Bus_publish
+	}
+	interface "publish" as Event_Bus_publish
+	interface "subscribe" as Event_Bus_subscribe
 }
+	Event_Bus_Event_Bus_Pub_Sub -up- Event_Bus_publish: <<Provides>>
+	Event_Bus_Event_Bus_Pub_Sub -up- Event_Bus_subscribe: <<Provides>>
 @enduml

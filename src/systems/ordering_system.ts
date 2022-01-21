@@ -4,8 +4,8 @@ import {
 import { k8sCluster, sqlRdbms } from '../domains/domain';
 import { default as eventBusSystem } from './eventbus_system';
 
-const { requires } = componentRelationships;
-const { components: { eventBus } } = eventBusSystem;
+const { accesses } = componentRelationships;
+const { components: { publishEvent } } = eventBusSystem;
 
 export const orderContainer = executionEnvironment('Ordering Container', k8sCluster);
 export const orderService = service('Ordering Service', orderContainer);
@@ -19,11 +19,10 @@ export default system({
     orderService,
     orderProcessor,
     orderDatabase,
-    eventBus,
   },
   componentRelationships: [
-    requires(orderService, orderDatabase),
-    requires(orderProcessor, orderDatabase),
-    requires(orderService, eventBus),
+    accesses(orderService, orderDatabase),
+    accesses(orderProcessor, orderDatabase),
+    accesses(orderService, publishEvent),
   ],
 });

@@ -4,8 +4,8 @@ import {
 import { k8sCluster, redisContainer } from '../domains/domain';
 import { default as eventBusSystem } from './eventbus_system';
 
-const { requires } = componentRelationships;
-const { components: { eventBus } } = eventBusSystem;
+const { accesses } = componentRelationships;
+const { components: { publishEvent } } = eventBusSystem;
 
 export const basketContainer = executionEnvironment('Basket Container', k8sCluster);
 export const basketService = service('Basket Service', basketContainer);
@@ -17,10 +17,9 @@ export default system({
     basketContainer,
     basketService,
     basketCache,
-    eventBus,
   },
   componentRelationships: [
-    requires(basketService, basketCache),
-    requires(basketService, eventBus),
+    accesses(basketService, basketCache),
+    accesses(basketService, publishEvent),
   ],
 });

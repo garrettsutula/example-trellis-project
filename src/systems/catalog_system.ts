@@ -4,8 +4,8 @@ import {
 import { k8sCluster, sqlRdbms } from '../domains/domain';
 import { default as eventBusSystem } from './eventbus_system';
 
-const { requires } = componentRelationships;
-const { components: { eventBus } } = eventBusSystem;
+const { accesses } = componentRelationships;
+const { components: { publishEvent } } = eventBusSystem;
 
 export const catalogContainer = executionEnvironment('Catalog Container', k8sCluster);
 export const catalogService = service('Catalog Service', catalogContainer);
@@ -17,10 +17,9 @@ export default system({
     catalogContainer,
     catalogService,
     catalogDatabase,
-    eventBus,
   },
   componentRelationships: [
-    requires(catalogService, catalogDatabase),
-    requires(catalogService, eventBus),
+    accesses(catalogService, catalogDatabase),
+    accesses(catalogService, publishEvent),
   ],
 });

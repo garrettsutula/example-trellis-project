@@ -4,8 +4,8 @@ import {
 import { k8sCluster, sqlRdbms } from '../domains/domain';
 import { default as eventBusSystem } from './eventbus_system';
 
-const { requires } = componentRelationships;
-const { components: { eventBus } } = eventBusSystem;
+const { accesses } = componentRelationships;
+const { components: { publishEvent } } = eventBusSystem;
 
 export const idContainer = executionEnvironment('Identity Container', k8sCluster);
 export const idService = service('Identity Service', idContainer);
@@ -17,10 +17,9 @@ export default system({
     idContainer,
     idService,
     idDatabase,
-    eventBus,
   },
   componentRelationships: [
-    requires(idService, idDatabase),
-    requires(idService, eventBus),
+    accesses(idService, idDatabase),
+    accesses(idService, publishEvent),
   ],
 });

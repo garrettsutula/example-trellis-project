@@ -4,12 +4,8 @@ import {
 import {
   clientMobileOS, clientBrowser, k8sCluster, apiGatewayContainer,
 } from '../domains/domain';
-import { idService } from './identity_system';
-import { catalogService } from './catalog_system';
-import { orderService } from './ordering_system';
-import { basketService } from './basket_system';
 
-const { requires } = componentRelationships;
+const { requires, provides, uses } = componentRelationships;
 
 export const mobileApp = ui('eShop Mobile App', clientMobileOS);
 export const spaWebApp = ui('eShop SPA Webapp', clientBrowser);
@@ -29,23 +25,11 @@ export default system({
     webAppBff,
     mobileShoppingApi,
     webShoppingApi,
-    idService,
-    catalogService,
-    orderService,
-    basketService,
   },
   componentRelationships: [
     requires(mobileApp, mobileShoppingApi),
-    requires(webApp, webAppBff),
+    uses(webApp, webAppBff),
     requires(webAppBff, webShoppingApi),
     requires(spaWebApp, webShoppingApi),
-    requires(mobileShoppingApi, idService),
-    requires(mobileShoppingApi, catalogService),
-    requires(mobileShoppingApi, orderService),
-    requires(mobileShoppingApi, basketService),
-    requires(webShoppingApi, idService),
-    requires(webShoppingApi, catalogService),
-    requires(webShoppingApi, orderService),
-    requires(webShoppingApi, basketService),
   ],
 });
