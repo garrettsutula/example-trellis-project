@@ -188,8 +188,71 @@ package "Baskets" as Baskets <<System>>
 package "Catalog" as Catalog <<System>>
 package "Ordering" as Ordering <<System>>
 package "Microsoft eShop System" as Microsoft_eShop_System <<System>>
-	Microsoft_eShop_System --> Baskets: <<Uses>>
-	Microsoft_eShop_System --> Catalog: <<Uses>>
-	Microsoft_eShop_System --> Ordering: <<Uses>>
-	Microsoft_eShop_System --> Identity: <<Uses>>
+	Microsoft_eShop_System --> Baskets: <<Uses>>\n**Basket**
+	Microsoft_eShop_System --> Catalog: <<Uses>>\n**Product**\n**ProductCategory**
+	Microsoft_eShop_System --> Ordering: <<Uses>>\n**Order**
+	Microsoft_eShop_System --> Identity: <<Uses>>\n**UserAccount**
+@enduml
+
+''''''''''''''''''''''''''''''
+@startuml Usecase Model Microsoft eShop
+header Usecase Model Diagram
+title Microsoft eShop
+:User: as User
+usecase Create_Basket as "
+    **Create Basket**
+
+    == Description ==
+  
+    Use the ecommerce site to add items,
+ customer, shipping and payment info.
+    
+
+    == Entities ==
+
+      |= Type |= C |= R |= U |= D |
+      | Basket | X | X | X |   |
+| UserAccount |   | X |   |   |
+| Product |   | X |   |   |
+
+"
+
+usecase Add_Payment as "
+    **Add Payment**
+
+    == Description ==
+  
+    Use the ecommerce site to
+add a form of payment to a basket.
+    
+
+    == Entities ==
+
+      |= Type |= C |= R |= U |= D |
+      | Payment | X | X |   |   |
+| Basket |   |   | X |   |
+
+"
+
+usecase Place_Order as "
+    **Place Order**
+
+    == Description ==
+  
+    Use the ecommerce site to build
+a basket, add a form of payment
+and convert it into an order
+to be shipped.
+    
+
+    == Entities ==
+
+      |= Type |= C |= R |= U |= D |
+      | Order | X | X |   |   |
+
+"
+
+User --> Place_Order
+Place_Order <.- Add_Payment
+Place_Order <.- Create_Basket
 @enduml

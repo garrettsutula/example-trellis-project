@@ -1,6 +1,7 @@
-import { domain, device, executionEnvironment } from 'trellisuml';
+import { actor, domain, device, executionEnvironment } from 'trellisuml';
 
 // Client Infrastructure
+export const user = actor('User');
 export const internet = domain('The Internet');
 export const clientMobile = device('Mobile Device', internet);
 export const clientMobileOS = executionEnvironment('Mobile OS\\n(iOS, Android, Windows)', clientMobile);
