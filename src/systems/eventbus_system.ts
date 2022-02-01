@@ -1,13 +1,17 @@
-import { system, queue, componentRelationships } from 'trellisuml';
+import {
+  system, queue, provides, executionEnvironment,
+} from 'trellisuml';
 import { k8sCluster } from '../domains/domain';
 
-const { provides } = componentRelationships;
+const eventBus = queue('Event Bus (Pub/Sub)');
+const eventBusContainer = executionEnvironment('Event Bus Container', k8sCluster, [eventBus]);
 
-const eventBus = queue('Event Bus (Pub/Sub)', k8sCluster);
+k8sCluster.components.push(eventBus);
 
 export default system({
   name: 'Event Bus',
   components: {
+    eventBusContainer,
     eventBus,
     publishEvent: eventBus.interfaces.publish,
     subscribeEvent: eventBus.interfaces.subscribe,

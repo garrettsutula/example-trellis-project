@@ -1,5 +1,7 @@
 import { actor, sequenceDiagrams } from 'trellisuml';
-import { basketService, basketCache } from '../systems/basket_system';
+import { default as basketSystem } from '../systems/basket_system';
+
+const { components: { basketService, basketCache } } = basketSystem;
 
 const { sequenceDiagram, breakSequence } = sequenceDiagrams;
 
