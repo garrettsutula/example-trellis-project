@@ -1,34 +1,39 @@
 import {
-  executionEnvironment, ui, service, api, system, componentRelationships,
+  executionEnvironment, ui, service, api, system, requires, accesses,
 } from 'trellisuml';
 import {
   clientMobileOS, clientBrowser, k8sCluster, apiGatewayContainer,
 } from '../domains/domain';
 
-const { requires, provides, uses } = componentRelationships;
+const mobileApp = ui('eShop Mobile App');
+const spaWebApp = ui('eShop SPA Webapp');
+const webApp = ui('eShop Traditional Webapp');
+const webAppBff = service('eShop Webapp MVC');
+const mobileShoppingApi = api('Mobile Shopping API');
+const webShoppingApi = api('Web Shopping API');
+const webAppBffContainer = executionEnvironment('MVC Container', k8sCluster, [webAppBff]);
 
-export const mobileApp = ui('eShop Mobile App', clientMobileOS);
-export const spaWebApp = ui('eShop SPA Webapp', clientBrowser);
-export const webApp = ui('eShop Traditional Webapp', clientBrowser);
-export const webAppBffContainer = executionEnvironment('MVC Container', k8sCluster);
-export const webAppBff = service('eShop Webapp MVC', webAppBffContainer);
-export const mobileShoppingApi = api('Mobile Shopping API', apiGatewayContainer);
-export const webShoppingApi = api('Web Shopping API', apiGatewayContainer);
+clientMobileOS.components.push(mobileApp);
+clientBrowser.components.push(spaWebApp, webApp);
+apiGatewayContainer.components.push(webShoppingApi, mobileShoppingApi);
 
 export default system({
   name: 'Microsoft eShop System',
   components: {
+    clientMobileOS,
+    clientBrowser,
+    apiGatewayContainer,
+    webAppBffContainer,
     mobileApp,
     spaWebApp,
     webApp,
-    webAppBffContainer,
     webAppBff,
     mobileShoppingApi,
     webShoppingApi,
   },
-  componentRelationships: [
+  relationships: [
     requires(mobileApp, mobileShoppingApi),
-    uses(webApp, webAppBff),
+    accesses(webApp, webAppBff),
     requires(webAppBff, webShoppingApi),
     requires(spaWebApp, webShoppingApi),
   ],

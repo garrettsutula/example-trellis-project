@@ -188,10 +188,10 @@ package "Baskets" as Baskets <<System>>
 package "Catalog" as Catalog <<System>>
 package "Ordering" as Ordering <<System>>
 package "Microsoft eShop System" as Microsoft_eShop_System <<System>>
-	Microsoft_eShop_System --> Baskets: <<Uses>>\n**Basket**
-	Microsoft_eShop_System --> Catalog: <<Uses>>\n**Product**\n**ProductCategory**
-	Microsoft_eShop_System --> Ordering: <<Uses>>\n**Order**
-	Microsoft_eShop_System --> Identity: <<Uses>>\n**UserAccount**
+	Microsoft_eShop_System --> Baskets: <<Uses>>
+	Microsoft_eShop_System --> Catalog: <<Uses>>
+	Microsoft_eShop_System --> Ordering: <<Uses>>
+	Microsoft_eShop_System --> Identity: <<Uses>>
 @enduml
 
 ''''''''''''''''''''''''''''''
