@@ -19,7 +19,7 @@ export default system({
     idService,
     idDatabase,
   },
-  componentRelationships: [
+  relationships: [
     accesses(idService, idDatabase),
     requires(idService, publishEvent),
   ],

@@ -29,7 +29,7 @@ export default system({
     apptDb,
   },
   // Defined as needed for every connection between systems. De-duplicated when rendered as puml.
-  componentRelationships: [
+  relationships: [
     requires(apptApp, apptService.interface),
     accesses(apptService, apptDb),
   ],

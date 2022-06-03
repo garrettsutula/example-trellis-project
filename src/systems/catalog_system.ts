@@ -20,7 +20,7 @@ export default system({
     catalogService,
     catalogDatabase,
   },
-  componentRelationships: [
+  relationships: [
     accesses(catalogService, catalogDatabase),
     requires(catalogService, publishEvent),
   ],

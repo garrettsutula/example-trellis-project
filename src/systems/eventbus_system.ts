@@ -6,8 +6,6 @@ import { k8sCluster } from '../domains/domain';
 const eventBus = queue('Event Bus (Pub/Sub)');
 const eventBusContainer = executionEnvironment('Event Bus Container', k8sCluster, [eventBus]);
 
-k8sCluster.components.push(eventBus);
-
 export default system({
   name: 'Event Bus',
   components: {
@@ -16,7 +14,7 @@ export default system({
     publishEvent: eventBus.interfaces.publish,
     subscribeEvent: eventBus.interfaces.subscribe,
   },
-  componentRelationships: [
+  relationships: [
     provides(eventBus, eventBus.interfaces.publish),
     provides(eventBus, eventBus.interfaces.subscribe),
   ],

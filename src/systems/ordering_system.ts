@@ -22,7 +22,7 @@ export default system({
     orderProcessor,
     orderDatabase,
   },
-  componentRelationships: [
+  relationships: [
     accesses(orderService, orderDatabase),
     accesses(orderProcessor, orderDatabase),
     requires(orderService, publishEvent),

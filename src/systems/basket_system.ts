@@ -20,7 +20,7 @@ export default system({
     basketService,
     basketCache,
   },
-  componentRelationships: [
+  relationships: [
     accesses(basketService, basketCache),
     requires(basketService, publishEvent),
   ],

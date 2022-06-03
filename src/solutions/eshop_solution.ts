@@ -63,7 +63,7 @@ export default solution({
       addPayment,
       placeOrder,
     },
-    useCaseRelationships: [
+    relationships: [
       perform(user, placeOrder),
       include(placeOrder, addPayment),
       include(placeOrder, createBasket),

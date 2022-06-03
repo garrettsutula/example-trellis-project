@@ -31,7 +31,7 @@ export default system({
     mobileShoppingApi,
     webShoppingApi,
   },
-  componentRelationships: [
+  relationships: [
     requires(mobileApp, mobileShoppingApi),
     accesses(webApp, webAppBff),
     requires(webAppBff, webShoppingApi),
