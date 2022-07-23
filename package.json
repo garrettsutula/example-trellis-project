@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/garrettsutula/example-trellis-project#readme",
   "dependencies": {
-    "trellisuml": "^0.10.3"
+    "trellisuml": "^0.11.1"
   }
 }

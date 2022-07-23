@@ -1,7 +1,17 @@
 {
-  "$id": "System.schema.json",
-  "title": "Software System",
+  "$id": "Container.schema.json",
+  "title": "Container",
   "type": "object",
+  "if": {"required": ["$ref"]},
+  "then": {
+    "properties": {
+      "$ref": {
+        "type": "string",
+        "format": "uri-reference"
+      }
+    }
+  },
+  "else": {
   "properties": {
     "name": {
       "type":"string"
@@ -9,23 +19,14 @@
     "description": {
       "type": "string"
     },
-    "location": {
-      "type": "string",
-      "enum": ["internal", "external"]
+    "technology": {
+      "type": "string"
     },
-    "containers": {
+    "components": {
       "type": "object",
       "patternProperties": {
         ".*": {
-          "$ref": "Container.schema.json"
-        }
-      }
-    },
-    "users": {
-      "type": "object",
-      "patternProperties": {
-        ".*": {
-          "$ref": "Person.schema.json"
+          "$ref": "Component.schema.json"
         }
       }
     },
@@ -37,4 +38,5 @@
     }
   },
   "required": ["name"]
+}
 }
