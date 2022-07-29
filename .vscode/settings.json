@@ -1,7 +1,8 @@
 {
   "yaml.schemas": {
     "schemas/Actors.schema.json": "models/Domain/actors.yaml",
-    "schemas/System.schema.json":"models/Systems/**/*.yaml"
+    "schemas/System.schema.json":"models/Systems/**/*.yaml",
+    "schemas/UseCaseModel.schema.json": "models/UseCaseModel/**/*.yaml"
   },
   "files.exclude": {
     "**/temp/**": true

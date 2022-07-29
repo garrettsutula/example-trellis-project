@@ -1,0 +1,32 @@
+{
+  "$id": "UseCaseModel.schema.json",
+  "title": "Use Case Model",
+  "description": "A collection of related use cases that form a larger business function.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "usecases": {
+      "type": "array",
+      "items": {
+        "$ref": "UseCase.schema.json"
+      }
+    },
+    "users": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "$ref": "User.schema.json"
+        }
+      }
+    }
+  },
+  "required": ["name"]
+}

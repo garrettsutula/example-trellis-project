@@ -1,0 +1,216 @@
+@startuml High-Level Use Case Model - Customer Banking
+title Customer Banking Use Case Model - High Level
+left to right direction
+
+  usecase LogIn as "**Log In**"
+  usecase ViewAccounts as "**View Accounts**"
+  usecase ViewAccountTransactionHistory as "**View Account Transaction History**"
+  usecase Deposit as "**Deposit**"
+  usecase Withdrawl as "**Withdrawl**"
+  usecase InternalTransfer as "**Internal Transfer**"
+  usecase ExternalTransfer as "**External Transfer**"
+
+  actor "Example User" as bankCustomer
+
+  bankCustomer --> LogIn
+  bankCustomer --> ViewAccounts
+  bankCustomer --> ViewAccountTransactionHistory
+  bankCustomer --> Deposit
+  bankCustomer --> Withdrawl
+  bankCustomer --> InternalTransfer
+  bankCustomer --> ExternalTransfer
+
+@enduml
+
+@startuml Detail-Level Use Case Model - Customer Banking
+title Customer Banking Use Case Model - Detail Level
+left to right direction
+
+  usecase LogIn as "
+    **Log In**
+    
+    --
+    From the main banking website, authenticate a user and redirect them to the banking application."
+
+  usecase ViewAccounts as "
+    **View Accounts**
+    
+    --
+    View users' account summary including account numbers and current balances."
+
+  usecase ViewAccountTransactionHistory as "
+    **View Account Transaction History**
+    
+    --
+    View previous and pending account transactions."
+
+  usecase Deposit as "
+    **Deposit**
+    
+    --
+    Deposit funds (cash, check, etc.) into an account."
+
+  usecase Withdrawl as "
+    **Withdrawl**
+    
+    --
+    Withdraw available cash balance from an account."
+
+  usecase InternalTransfer as "
+    **Internal Transfer**
+    
+    --
+    Transfer available cash balance between accounts."
+
+  usecase ExternalTransfer as "
+    **External Transfer**
+    
+    --
+    Transfer available cash balance between accounts using Automated Clearing House (ACH)."
+
+
+  actor "Example User" as bankCustomer
+
+    bankCustomer --> LogIn
+    bankCustomer --> ViewAccounts
+    bankCustomer --> ViewAccountTransactionHistory
+    bankCustomer --> Deposit
+    bankCustomer --> Withdrawl
+    bankCustomer --> InternalTransfer
+    bankCustomer --> ExternalTransfer
+
+@enduml
+
+@startuml Usecase - Log In
+  title Log In
+
+  usecase LogIn as "
+    Log In
+
+    --
+
+    From the main banking website, authenticate a user and redirect them to the banking application.
+
+    --
+    
+    **User (System):**
+    - Example User (Banking UI)"
+
+  actor "Example User" as bankCustomer
+  bankCustomer --> LogIn
+@enduml
+
+@startuml Usecase - View Accounts
+  title View Accounts
+
+  usecase ViewAccounts as "
+    View Accounts
+
+    --
+
+    View users&#x27; account summary including account numbers and current balances.
+
+    --
+    
+    **User (System):**
+    - Example User (Banking UI)"
+
+  actor "Example User" as bankCustomer
+  bankCustomer --> ViewAccounts
+@enduml
+
+@startuml Usecase - View Account Transaction History
+  title View Account Transaction History
+
+  usecase ViewAccountTransactionHistory as "
+    View Account Transaction History
+
+    --
+
+    View previous and pending account transactions.
+
+    --
+    
+    **User (System):**
+    - Example User (Banking UI)"
+
+  actor "Example User" as bankCustomer
+  bankCustomer --> ViewAccountTransactionHistory
+@enduml
+
+@startuml Usecase - Deposit
+  title Deposit
+
+  usecase Deposit as "
+    Deposit
+
+    --
+
+    Deposit funds (cash, check, etc.) into an account.
+
+    --
+    
+    **User (System):**
+    - Example User (Banking UI)"
+
+  actor "Example User" as bankCustomer
+  bankCustomer --> Deposit
+@enduml
+
+@startuml Usecase - Withdrawl
+  title Withdrawl
+
+  usecase Withdrawl as "
+    Withdrawl
+
+    --
+
+    Withdraw available cash balance from an account.
+
+    --
+    
+    **User (System):**
+    - Example User (Banking UI)"
+
+  actor "Example User" as bankCustomer
+  bankCustomer --> Withdrawl
+@enduml
+
+@startuml Usecase - Internal Transfer
+  title Internal Transfer
+
+  usecase InternalTransfer as "
+    Internal Transfer
+
+    --
+
+    Transfer available cash balance between accounts.
+
+    --
+    
+    **User (System):**
+    - Example User (Banking UI)"
+
+  actor "Example User" as bankCustomer
+  bankCustomer --> InternalTransfer
+@enduml
+
+@startuml Usecase - External Transfer
+  title External Transfer
+
+  usecase ExternalTransfer as "
+    External Transfer
+
+    --
+
+    Transfer available cash balance between accounts using Automated Clearing House (ACH).
+
+    --
+    
+    **User (System):**
+    - Example User (Banking UI)"
+
+  actor "Example User" as bankCustomer
+  bankCustomer --> ExternalTransfer
+@enduml
+
