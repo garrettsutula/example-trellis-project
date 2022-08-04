@@ -1,27 +1,16 @@
 {
-  "$id": "System.schema.json",
-  "title": "Software System",
+  "$id": "Solution.schema.json",
+  "title": "Solution System Context Model",
+  "description": "A C4 model for System Context",
   "type": "object",
   "properties": {
     "name": {
-      "type":"string"
+      "type": "string"
     },
     "description": {
       "type": "string"
     },
-    "location": {
-      "type": "string",
-      "enum": ["internal", "external"]
-    },
-    "containers": {
-      "type": "object",
-      "patternProperties": {
-        ".*": {
-          "$ref": "Container.schema.json"
-        }
-      }
-    },
-    "users": {
+    "people": {
       "type": "object",
       "patternProperties": {
         ".*": {
@@ -29,12 +18,20 @@
         }
       }
     },
+    "systems": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "$ref": "System.schema.json"
+        }
+      }
+    },
     "relationships": {
       "type": "array",
       "items": {
-        "$ref": "ContainerRelationship.schema.json"
+        "$ref": "SystemContextRelationship.schema.json"
       }
     }
   },
-  "required": ["name"]
+  "required": ["name", "people", "systems", "relationship"]
 }

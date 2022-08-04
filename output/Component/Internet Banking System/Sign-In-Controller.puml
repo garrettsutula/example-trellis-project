@@ -1,0 +1,10 @@
+@startuml
+title Sign-In Controller Class Diagram
+
+note left of SignInController: Allows users to sign in to the Internet Banking system.
+
+package "Sign-In Controller" as SignInController {}
+
+
+
+@enduml

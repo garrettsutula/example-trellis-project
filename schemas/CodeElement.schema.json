@@ -1,6 +1,6 @@
 {
-  "$id": "Component.schema.json",
-  "title": "Component",
+  "$id": "CodeElement.schema.json",
+  "title": "Code Element",
   "type": "object",
   "if": {"required": ["$ref"]},
   "then": {
@@ -19,16 +19,9 @@
       "description": {
         "type": "string"
       },
-      "technology": {
-        "type": "string"
-      },
-      "elements": {
-        "type": "object",
-        "patternProperties": {
-          ".*": {
-            "$ref": "CodeElement.schema.json"
-          }
-        }
+      "type": {
+        "type": "string",
+        "enum": ["class", "interface", "enum", "entity"]
       },
       "relationships": {
         "type": "array",
@@ -37,6 +30,6 @@
         }
       }
     },
-    "required": ["name"]
+    "required": ["type"]
   }
 }

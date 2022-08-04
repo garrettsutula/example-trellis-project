@@ -1,0 +1,11 @@
+name: Sign-In Controller
+description: Allows users to sign in to the Internet Banking system.
+technology: Spring MVC Rest Contoller
+relationships:
+  - type: uses
+    target:
+      $ref: ./Security-Component.yaml
+parent:
+  $ref: "#"
+id: SignInController
+modelType: component

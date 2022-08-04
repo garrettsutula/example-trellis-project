@@ -1,0 +1,14 @@
+name: Internet Banking System Common
+description: Provides common functionality like exceptions and shared entities
+technology: Unknown
+elements:
+  InternetBankingSystemException:
+    type: class
+    parent:
+      $ref: "#"
+    id: InternetBankingSystemException
+    modelType: codeElement
+parent:
+  $ref: "#"
+id: InternetBankingSystemCommon
+modelType: component

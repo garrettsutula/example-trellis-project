@@ -1,0 +1,17 @@
+@startuml
+title Accounts Summary Controller Class Diagram
+
+note left of AccountsSummaryController: Provides customers with a summary of their bank accounts.
+
+package "Accounts Summary Controller" as AccountsSummaryController {
+  class AccountsSummaryController.BankingService {
+  }
+}
+
+package "Mainframe Facade" as MainframeFacade {
+  interface MainframeFacade.MainframeBankingSystemFacade {
+  }
+}
+
+AccountsSummaryController.BankingService --> MainframeFacade.MainframeBankingSystemFacade: uses
+@enduml

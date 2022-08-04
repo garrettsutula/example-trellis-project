@@ -1,0 +1,10 @@
+@startuml
+title E-mail Component Class Diagram
+
+note left of EmailComponent: Sends e-mail to users
+
+package "E-mail Component" as EmailComponent {}
+
+
+
+@enduml

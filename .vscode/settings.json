@@ -1,10 +1,9 @@
 {
   "yaml.schemas": {
-    "schemas/Actors.schema.json": "models/Domain/actors.yaml",
-    "schemas/System.schema.json":"models/Systems/**/*.yaml",
-    "schemas/UseCaseModel.schema.json": "models/UseCaseModel/**/*.yaml"
-  },
-  "files.exclude": {
-    "**/temp/**": true
+    "./schemas/Component.schema.json": "models/Component/**/*.yaml",
+    "./schemas/Container.schema.json": "models/Container/**/*.yaml",
+    "./schemas/Solution.schema.json": "models/Solution/**/*.yaml",
+    "./schemas/System.schema.json": "models/System/**/*.yaml",
+    "./schemas/People.schema.json": "models/Domain/People.yaml" 
   }
 }

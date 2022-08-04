@@ -1,18 +1,19 @@
 {
   "$id": "ComponentRelationship.schema.json",
   "title": "Component Relationship",
+  "description": "Relationships between components within a software system",
   "type": "object",
   "properties": {
-    "source": {
-      "$ref": "References/ComponentReference.schema.json"
-    },
-    "target": {
-      "$ref": "References/ComponentReference.schema.json"
-    },
     "type": {
       "type": "string",
-      "enum": ["Requires", "Accesses"]
+      "enum": ["uses", "accesses"]
+    },
+    "target": {
+      "$ref": "Component.schema.json"
+    },
+    "technology": {
+      "type": "string"
     }
   },
-  "required": ["source", "target"]
+  "required": ["target", "type"]
 }
