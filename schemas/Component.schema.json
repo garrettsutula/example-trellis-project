@@ -4,39 +4,31 @@
   "type": "object",
   "if": {"required": ["$ref"]},
   "then": {
-    "properties": {
-      "$ref": {
-        "type": "string",
-        "format": "uri-reference"
-      }
-    }
+    "$ref": "References/ComponentReference.schema.json"
   },
-  "else": {
+  "else": {  
     "properties": {
+      "id": {
+        "type": "string"
+      },
       "name": {
-        "type":"string"
+        "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "enum": ["UI", "Service", "Database", "Processor", "Queue", "File", "Folder"]
       },
       "description": {
-        "type": "string"
+        "type": "string",
+        "description": "A brief description of the component and its purpose in this system."
       },
-      "technology": {
-        "type": "string"
-      },
-      "elements": {
-        "type": "object",
-        "patternProperties": {
-          ".*": {
-            "$ref": "CodeElement.schema.json"
-          }
-        }
-      },
-      "relationships": {
-        "type": "array",
-        "items": {
-          "$ref": "CodeElementRelationship.schema.json"
-        }
+      "parent": {
+        "description": "A back reference to the parent system, this is set programmatically when pre-processing the models prior to being fed into templates for output generation.",
+        "$ref": "References/SystemReference.schema.json"
       }
     },
-    "required": ["name"]
+    "required": ["name", "type"],
+    "additionalProperties": false
   }
+
 }

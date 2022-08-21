@@ -1,0 +1,14 @@
+name: Trellis Diagram Framework
+usecases:
+  - name: Create Model Schema
+    users:
+      - $ref: "../Domain/actors.yaml#/user"
+  - name: Create Output Template
+    users:
+      - $ref: "../Domain/actors.yaml#/user"
+  - name: Create Model Enrichment Script
+    users:
+      - $ref: "../Domain/actors.yaml#/user"
+  - name: Model Systems, Components, Use Cases, etc.
+    users:
+      - $ref: "../Domain/actors.yaml#/user"

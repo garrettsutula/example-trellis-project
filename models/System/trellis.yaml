@@ -1,0 +1,5 @@
+name: Trellis
+components:
+  cli:
+    name: Trellis CLI
+    type: UI

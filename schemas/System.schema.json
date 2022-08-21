@@ -1,40 +1,29 @@
 {
   "$id": "System.schema.json",
-  "title": "Software System",
+  "title": "System",
+  "description": "A group of components and relationships that make up a software system.",
   "type": "object",
   "properties": {
-    "name": {
-      "type":"string"
-    },
-    "description": {
+    "id": {
       "type": "string"
     },
-    "location": {
-      "type": "string",
-      "enum": ["internal", "external"]
+    "name": {
+      "type": "string"
     },
-    "containers": {
+    "components": {
       "type": "object",
       "patternProperties": {
         ".*": {
-          "$ref": "Container.schema.json"
-        }
-      }
-    },
-    "users": {
-      "type": "object",
-      "patternProperties": {
-        ".*": {
-          "$ref": "Person.schema.json"
+          "$ref": "Component.schema.json"
         }
       }
     },
     "relationships": {
       "type": "array",
       "items": {
-        "$ref": "ContainerRelationship.schema.json"
+        "$ref": "ComponentRelationship.schema.json"
       }
     }
   },
-  "required": ["name"]
+  "required": ["name", "components"]
 }

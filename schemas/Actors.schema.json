@@ -1,0 +1,11 @@
+{
+  "$id": "Actors.schema.json",
+  "title": "Actors",
+  "description": "A group of Actors, users that perform use cases.",
+  "type": "object",
+  "patternProperties": {
+    ".*": {
+      "$ref": "Actor.schema.json"
+    }
+  }
+}

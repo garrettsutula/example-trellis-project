@@ -1,0 +1,5 @@
+name: Filesystem
+components:
+  workspace:
+    name: Trellis Project Workspace
+    type: Folder

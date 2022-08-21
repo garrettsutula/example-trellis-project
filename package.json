@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/garrettsutula/example-trellis-project#readme",
   "dependencies": {
-    "trellisuml": "^0.11.13"
+    "trellisuml": "^0.13.2"
   }
 }
