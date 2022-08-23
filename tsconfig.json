@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "outFile": "../../built/local/tsc.js",
+    "sourceMap": true,
+    "checkJs": true,
+    "lib": ["ES2022"]
+  },
+  "include": ["processors/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

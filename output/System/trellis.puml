@@ -1,0 +1,24 @@
+@startuml Trellis System Diagram
+title Trellis System Diagram
+
+  package "Trellis" as Trellis <<System>>
+  package "Filesystem" as Filesystem <<System>>
+
+  Trellis --> Filesystem
+
+@enduml
+
+
+@startuml Trellis Component Diagram
+title Trellis System Diagram
+
+  package "Trellis" as Trellis <<System>> {
+    control "Trellis CLI" as Trellis.TrellisCLI
+  }
+  package "Filesystem" as Filesystem <<System>> {
+    control "Trellis Project Workspace" as Filesystem.TrellisProjectWorkspace
+  }
+
+  Trellis.TrellisCLI --> Filesystem.TrellisProjectWorkspace
+
+@enduml

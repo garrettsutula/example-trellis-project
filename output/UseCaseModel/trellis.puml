@@ -1,0 +1,147 @@
+@startuml High-Level Use Case Model - Trellis Diagram Framework
+title Trellis Diagram Framework Use Case Model - High Level
+left to right direction
+
+  usecase CreateModelSchema as "**Create Model Schema**"
+  usecase CreateOutputTemplate as "**Create Output Template**"
+  usecase CreateModelEnrichmentScript as "**Create Model Enrichment Script**"
+  usecase ModelSystemsComponentsUseCasesetc as "**Model Systems, Components, Use Cases, etc.**"
+  usecase GenerateOutputArtifacts as "**Generate Output Artifacts**"
+  usecase OrganizeProjectWorkspace as "**Organize Project Workspace**"
+  usecase ImplementaNewMetamodel as "**Implement a New Meta-model**"
+
+  actor "Trellis User" as user
+
+  user --> CreateModelSchema
+  user --> CreateOutputTemplate
+  user --> CreateModelEnrichmentScript
+  user --> ModelSystemsComponentsUseCasesetc
+  user --> GenerateOutputArtifacts
+  user --> OrganizeProjectWorkspace
+  user --> ImplementaNewMetamodel
+
+@enduml
+
+@startuml Detail-Level Use Case Model - Trellis Diagram Framework
+title Trellis Diagram Framework Use Case Model - Detail Level
+left to right direction
+
+  usecase CreateModelSchema as "
+  Create Model Schema
+  
+  --
+  
+  Create a JSON Schema representing a model schema, 
+  used for validation and in IDE extensions.
+  
+  For intellisense, schemas are configured in 
+  './.vscode/settings.json'.
+  
+  For validation, the schema matching the top-level
+  model folder name will be used. For example,
+  './models/UseCaseModel/trellis.puml' will be
+  validate by './schemas/UseCaseModel.schema.json'.
+  
+  --
+  
+  **User (System):**
+  - Trellis User (vscode IDE)"
+  usecase CreateOutputTemplate as "
+  Create Output Template
+  
+  --
+  
+  Create an optout template, the output file extension
+  determines the final file type. For example,
+  'System.puml.hbs' will create a '.puml' file as
+  output.
+  
+  --
+  
+  **User (System):**
+  - Trellis User (vscode IDE)"
+  usecase CreateModelEnrichmentScript as "
+  Create Model Enrichment Script
+  
+  --
+  
+  **(Optional)** Create a javascript pre and post processing
+  script to enhance each model object to make templates as
+  simple as possible.
+  
+  This is typically used to add roll-up collections of systems,
+  components and relationships so output templates can simpler
+  loops with less conditional logic.
+  
+  --
+  
+  **User (System):**
+  - Trellis User (vscode IDE)"
+  usecase ModelSystemsComponentsUseCasesetc as "
+  Model Systems, Components, Use Cases, etc.
+  
+  --
+  
+  Use the workspace to create models of software systems that
+  produce diagrams, configuration files, and other artifacts.
+  
+  --
+  
+  **User (System):**
+  - Trellis User (vscode IDE)"
+  usecase GenerateOutputArtifacts as "
+  Generate Output Artifacts
+  
+  --
+  
+  Using the cli, run 'trellis build' or 'trellis watch' to
+  generate output files from models, scripts and templates.
+  
+  --
+  
+  **User (System):**
+  - Trellis User (Trellis CLI)"
+  usecase OrganizeProjectWorkspace as "
+  Organize Project Workspace
+  
+  --
+  
+  Using sub-folders to group similar files as needed,
+  organize the 'models', 'schemas', 'templates' and 'scripts'
+  files into subfolders.
+  
+  The following rules must be followed:
+  - **models** - The first sub-folder determines the model type.
+  - **processors** - (Optional) script file matching top-level model folder will be run for each model to add/change model properties.
+  - **schemas** - schema file matching top-level model folder, used to enhance IDE and validate model
+  - **templates** - (Optional) template folder matching top-level model folder, zero or more output artifacts.
+  
+  --
+  
+  **User (System):**
+  - Trellis User (Trellis Project Workspace)"
+  usecase ImplementaNewMetamodel as "
+  Implement a New Meta-model
+  
+  --
+  
+  Create a new type of workspace by devising your own entirely new 
+  schemas, processors and templates that implements a meta-model
+  that is different than UML or C4.
+  
+  --
+  
+  **User (System):**
+  - Trellis User (vscode IDE)"
+
+  actor "Trellis User" as user
+
+  user --> CreateModelSchema
+  user --> CreateOutputTemplate
+  user --> CreateModelEnrichmentScript
+  user --> ModelSystemsComponentsUseCasesetc
+  user --> GenerateOutputArtifacts
+  user --> OrganizeProjectWorkspace
+  user --> ImplementaNewMetamodel
+
+@enduml

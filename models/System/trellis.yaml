@@ -3,3 +3,8 @@ components:
   cli:
     name: Trellis CLI
     type: UI
+relationships:
+  - source:
+      $ref: "#/components/cli" 
+    target:
+      $ref: "./filesystem.yaml#/components/workspace" 
