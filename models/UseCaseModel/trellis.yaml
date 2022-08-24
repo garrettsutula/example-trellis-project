@@ -14,7 +14,7 @@ usecases:
       validate by './schemas/UseCaseModel.schema.json'.
     actors:
       - actor:
-          $ref: "../Domain/actors.yaml#/user"
+          $ref: "../Actor/actors.yaml#/user"
         uses:
           - $ref: "../System/vscode.yaml#/components/ui"
   - name: Create Output Template
@@ -25,7 +25,7 @@ usecases:
       output.
     actors:
       - actor:
-          $ref: "../Domain/actors.yaml#/user"
+          $ref: "../Actor/actors.yaml#/user"
         uses:
           - $ref: "../System/vscode.yaml#/components/ui"
   - name: Create Model Enrichment Script
@@ -39,7 +39,7 @@ usecases:
       loops with less conditional logic.
     actors:
       - actor:
-          $ref: "../Domain/actors.yaml#/user"
+          $ref: "../Actor/actors.yaml#/user"
         uses:
           - $ref: "../System/vscode.yaml#/components/ui"
   - name: Model Systems, Components, Use Cases, etc.
@@ -48,7 +48,7 @@ usecases:
       produce diagrams, configuration files, and other artifacts.
     actors:
       - actor:
-          $ref: "../Domain/actors.yaml#/user"
+          $ref: "../Actor/actors.yaml#/user"
         uses:
           - $ref: "../System/vscode.yaml#/components/ui"
   - name: Generate Output Artifacts
@@ -57,7 +57,7 @@ usecases:
       generate output files from models, scripts and templates.
     actors:
       - actor:
-          $ref: "../Domain/actors.yaml#/user"
+          $ref: "../Actor/actors.yaml#/user"
         uses:
           - $ref: "../System/trellis.yaml#/components/cli"
   - name: Organize Project Workspace
@@ -73,7 +73,7 @@ usecases:
       - **templates** - (Optional) template folder matching top-level model folder, zero or more output artifacts.
     actors:
       - actor:
-          $ref: "../Domain/actors.yaml#/user"
+          $ref: "../Actor/actors.yaml#/user"
         uses:
           - $ref: "../System/filesystem.yaml#/components/workspace"
   - name: Implement a New Meta-model
@@ -83,6 +83,6 @@ usecases:
       that is different than UML or C4.
     actors:
       - actor:
-          $ref: "../Domain/actors.yaml#/user"
+          $ref: "../Actor/actors.yaml#/user"
         uses:
           - $ref: "../System/vscode.yaml#/components/ui"
