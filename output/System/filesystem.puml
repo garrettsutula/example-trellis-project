@@ -11,7 +11,16 @@ title Filesystem System Diagram
 title Filesystem System Diagram
 
   package "Filesystem" as Filesystem <<System>> {
-    control "Trellis Project Workspace" as Filesystem.TrellisProjectWorkspace
+    control "Trellis Project Workspace" as Filesystem.TrellisProjectWorkspace {
+    
+    control "Models" as Filesystem.TrellisProjectWorkspace.Models
+    
+    control "Schemas" as Filesystem.TrellisProjectWorkspace.Schemas
+    
+    control "Templates" as Filesystem.TrellisProjectWorkspace.Templates
+    
+    control "Processing Scripts" as Filesystem.TrellisProjectWorkspace.ProcessingScripts
+    }
   }
 
 

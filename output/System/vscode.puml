@@ -11,10 +11,7 @@ title Visual Studio Code System Diagram
 title Visual Studio Code System Diagram
 
   package "Visual Studio Code" as VisualStudioCode <<System>> {
-    control "vscode IDE" as VisualStudioCode.vscodeIDE
-    control "YAML Extension" as VisualStudioCode.YAMLExtension
-    control "PlantUML Extension" as VisualStudioCode.PlantUMLExtension
-  }
+    control "vscode IDE" as VisualStudioCode.vscodeIDE    control "YAML Extension" as VisualStudioCode.YAMLExtension    control "PlantUML Extension" as VisualStudioCode.PlantUMLExtension  }
 
   VisualStudioCode.vscodeIDE --> VisualStudioCode.YAMLExtension
   VisualStudioCode.vscodeIDE --> VisualStudioCode.PlantUMLExtension
