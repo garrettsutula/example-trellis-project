@@ -1,5 +1,25 @@
 const nameToId = require("./lib/nameToId");
 
+
+function preRecurseComponents(component, parent) {
+  component.id = `${parent.id}.${nameToId(component.name)}`;
+  if(component.components)
+    Object.keys(component.components)
+      .forEach((childComponentKey) => preRecurseComponents(component.components[childComponentKey], component));
+}
+
+
+function postRecurseComponents(component, system, systemContext) {
+  if (!component.system) component.system = system;
+  systemContext.systems.add(component.system);
+  systemContext.components.add(component);
+  if(component.components)
+    Object.keys(component.components).forEach((childComponentKey) => {
+      const childComponent = component.components[childComponentKey];
+      postRecurseComponents(childComponent, component.system, systemContext);
+    })
+}
+
 function preprocessFn(system) {
   const {components = {}, relationships = []} = system;
 
@@ -11,6 +31,7 @@ function preprocessFn(system) {
     // Adds a back-reference to each component so system name is easily accessible from {component}.parent.name
     component.system = { $ref: '#' };
     component.id = `${system.id}.${nameToId(component.name)}`; // TODO: sanitizer util
+    if (component.components) preRecurseComponents(component, system);6
   });
   // Adds system id
   return system;
@@ -30,8 +51,7 @@ function postprocessFn(system) {
 
   Object.keys(components).forEach((componentKey) => {
     const component = components[componentKey];
-    systemContext.systems.add(component.system);
-    systemContext.components.add(component);
+    postRecurseComponents(component, component.system, systemContext);
   });
   relationships.forEach((relationship) => {
     const { source, target, type, interface} = relationship;

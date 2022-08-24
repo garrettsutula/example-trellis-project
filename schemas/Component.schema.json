@@ -22,7 +22,19 @@
         "type": "string",
         "description": "A brief description of the component and its purpose in this system."
       },
-      "parent": {
+      "components": {
+        "type": "object",
+        "description": "Child components of the component. E.g. files in a folder",
+        "patternProperties": {
+          ".*": {
+            "type": "object",
+            "items": {
+              "$ref": "Component.schema.json"
+            }
+          }
+        }
+      },
+      "system": {
         "description": "A back reference to the parent system, this is set programmatically when pre-processing the models prior to being fed into templates for output generation.",
         "$ref": "References/SystemReference.schema.json"
       }
