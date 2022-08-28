@@ -10,15 +10,15 @@ left to right direction
   usecase OrganizeProjectWorkspace as "**Organize Project Workspace**"
   usecase ImplementaNewMetamodel as "**Implement a New Meta-model**"
 
-  actor "Trellis User" as user
+  actor "Trellis User" as TrellisUser
 
-  user --> CreateModelSchema
-  user --> CreateOutputTemplate
-  user --> CreateModelEnrichmentScript
-  user --> ModelSystemsComponentsUseCasesetc
-  user --> GenerateOutputArtifacts
-  user --> OrganizeProjectWorkspace
-  user --> ImplementaNewMetamodel
+  TrellisUser --> CreateModelSchema
+  TrellisUser --> CreateOutputTemplate
+  TrellisUser --> CreateModelEnrichmentScript
+  TrellisUser --> ModelSystemsComponentsUseCasesetc
+  TrellisUser --> GenerateOutputArtifacts
+  TrellisUser --> OrganizeProjectWorkspace
+  TrellisUser --> ImplementaNewMetamodel
 
 @enduml
 
@@ -134,14 +134,14 @@ left to right direction
   **User (System):**
   - Trellis User (vscode IDE)"
 
-  actor "Trellis User" as user
+  actor "Trellis User" as TrellisUser
 
-  user --> CreateModelSchema
-  user --> CreateOutputTemplate
-  user --> CreateModelEnrichmentScript
-  user --> ModelSystemsComponentsUseCasesetc
-  user --> GenerateOutputArtifacts
-  user --> OrganizeProjectWorkspace
-  user --> ImplementaNewMetamodel
+  TrellisUser --> CreateModelSchema
+  TrellisUser --> CreateOutputTemplate
+  TrellisUser --> CreateModelEnrichmentScript
+  TrellisUser --> ModelSystemsComponentsUseCasesetc
+  TrellisUser --> GenerateOutputArtifacts
+  TrellisUser --> OrganizeProjectWorkspace
+  TrellisUser --> ImplementaNewMetamodel
 
 @enduml

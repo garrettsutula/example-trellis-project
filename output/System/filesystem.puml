@@ -11,13 +11,20 @@ title Filesystem System Diagram
 title Filesystem System Diagram
 
   package "Filesystem" as Filesystem <<System>> {
-    control "Trellis Project Workspace" as Filesystem.TrellisProjectWorkspace {
-    control "Models" as Filesystem.TrellisProjectWorkspace.Models
-    control "Schemas" as Filesystem.TrellisProjectWorkspace.Schemas
-    control "Templates" as Filesystem.TrellisProjectWorkspace.Templates
-    control "Processing Scripts" as Filesystem.TrellisProjectWorkspace.ProcessingScripts
+    folder "Trellis Project Workspace" as Filesystem.TrellisProjectWorkspace {
+      folder "Models" as Filesystem.TrellisProjectWorkspace.Models
+      folder "Schemas" as Filesystem.TrellisProjectWorkspace.Schemas
+      folder "Templates" as Filesystem.TrellisProjectWorkspace.Templates
+      folder "Processing Scripts" as Filesystem.TrellisProjectWorkspace.ProcessingScripts
     }
+    
   }
+
+
+@enduml
+
+@startuml Filesystem Deployment Diagram
+title Filesystem System Diagram
 
 
 @enduml
