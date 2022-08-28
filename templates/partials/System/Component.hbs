@@ -1,7 +1,7 @@
-control "{{name}}" as {{id}}{{#if components}} {
+folder "{{name}}" as {{id}}{{#if components}} {
 {{#each components}}
-{{>Component }}
-
+  {{>Component }}
 {{/each}}
 }
 {{/if}}
+
