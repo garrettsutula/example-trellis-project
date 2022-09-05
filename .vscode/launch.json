@@ -9,10 +9,10 @@
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "build"],
+      "runtimeExecutable": "trellis",
+      "runtimeArgs": ["build"],
       "outFiles": [
-        "${workspaceFolder}/node_modules/trellisuml/**/*.js"
+        "${userHome}/source/trellis-uml/dist/**/*.js"
       ]
     },
     {
@@ -20,10 +20,11 @@
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "watch"],
+      "runtimeExecutable": "trellis",
+      "runtimeArgs": ["watch"],
       "outFiles": [
-        "${workspaceFolder}/node_modules/trellisuml/**/*.js"
+        "${userHome}/source/trellis-uml/dist/**/*.js",
+        "${userHome}/source/trellis-uml/node_modules/trellis-core/**/*.js"
       ]
     }        
   ]
