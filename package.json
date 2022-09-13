@@ -6,7 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "trellis build",
-    "watch": "trellis watch"
+    "watch": "trellis watch",
+    "copy:models": "copyfiles \"models/**/*.yaml\" ../trellis-uml/src/cli/project-templates/uml",
+    "copy:processors": "copyfiles \"processors/**/*.js\" ../trellis-uml/src/cli/project-templates/uml",
+    "copy:schemas": "copyfiles \"schemas/**/*.schema.json\" ../trellis-uml/src/cli/project-templates/uml",
+    "copy:templates": "copyfiles \"templates/**/*.hbs\" ../trellis-uml/src/cli/project-templates/uml",
+    "copy": "npm run copy:models && npm run copy:processors && npm run copy:schemas && npm run copy:templates"
   },
   "repository": {
     "type": "git",
@@ -21,5 +26,8 @@
   "homepage": "https://github.com/garrettsutula/example-trellis-project#readme",
   "dependencies": {
     "trellisuml": "^0.15.1"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1"
   }
 }
