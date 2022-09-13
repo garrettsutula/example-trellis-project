@@ -13,14 +13,14 @@ title Trellis System Diagram
 title Trellis System Diagram
 
   package "Trellis" as Trellis <<System>> {
-    folder "Trellis CLI" as Trellis.TrellisCLI
+    boundary "Trellis CLI" as Trellis.TrellisCLI <<UI>>
   }
   package "Filesystem" as Filesystem <<System>> {
-    folder "Trellis Project Workspace" as Filesystem.TrellisProjectWorkspace {
-      folder "Models" as Filesystem.TrellisProjectWorkspace.Models
-      folder "Schemas" as Filesystem.TrellisProjectWorkspace.Schemas
-      folder "Templates" as Filesystem.TrellisProjectWorkspace.Templates
-      folder "Processing Scripts" as Filesystem.TrellisProjectWorkspace.ProcessingScripts
+    folder "Trellis Project Workspace" as Filesystem.TrellisProjectWorkspace <<Folder>> {
+      file "Models" as Filesystem.TrellisProjectWorkspace.Models <<File>>
+      file "Schemas" as Filesystem.TrellisProjectWorkspace.Schemas <<File>>
+      file "Templates" as Filesystem.TrellisProjectWorkspace.Templates <<File>>
+      file "Processing Scripts" as Filesystem.TrellisProjectWorkspace.ProcessingScripts <<File>>
     }
     
   }

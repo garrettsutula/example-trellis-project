@@ -11,9 +11,9 @@ title Visual Studio Code System Diagram
 title Visual Studio Code System Diagram
 
   package "Visual Studio Code" as VisualStudioCode <<System>> {
-    folder "vscode IDE" as VisualStudioCode.vscodeIDE
-    folder "YAML Extension" as VisualStudioCode.YAMLExtension
-    folder "PlantUML Extension" as VisualStudioCode.PlantUMLExtension
+    boundary "vscode IDE" as VisualStudioCode.vscodeIDE <<UI>>
+    component "YAML Extension" as VisualStudioCode.YAMLExtension <<Service>>
+    component "PlantUML Extension" as VisualStudioCode.PlantUMLExtension <<Service>>
   }
 
   VisualStudioCode.vscodeIDE --> VisualStudioCode.YAMLExtension

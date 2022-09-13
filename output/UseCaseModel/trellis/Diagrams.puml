@@ -27,7 +27,7 @@ title Trellis Diagram Framework Use Case Model - Detail Level
 left to right direction
 
   usecase CreateModelSchema as "
-  Create Model Schema
+  **Create Model Schema**
   
   --
   
@@ -46,8 +46,9 @@ left to right direction
   
   **User (System):**
   - Trellis User (vscode IDE)"
+
   usecase CreateOutputTemplate as "
-  Create Output Template
+  **Create Output Template**
   
   --
   
@@ -60,8 +61,9 @@ left to right direction
   
   **User (System):**
   - Trellis User (vscode IDE)"
+
   usecase CreateModelEnrichmentScript as "
-  Create Model Enrichment Script
+  **Create Model Enrichment Script**
   
   --
   
@@ -77,8 +79,9 @@ left to right direction
   
   **User (System):**
   - Trellis User (vscode IDE)"
+
   usecase ModelSystemsComponentsUseCasesetc as "
-  Model Systems, Components, Use Cases, etc.
+  **Model Systems, Components, Use Cases, etc.**
   
   --
   
@@ -89,8 +92,9 @@ left to right direction
   
   **User (System):**
   - Trellis User (vscode IDE)"
+
   usecase GenerateOutputArtifacts as "
-  Generate Output Artifacts
+  **Generate Output Artifacts**
   
   --
   
@@ -101,8 +105,9 @@ left to right direction
   
   **User (System):**
   - Trellis User (Trellis CLI)"
+
   usecase OrganizeProjectWorkspace as "
-  Organize Project Workspace
+  **Organize Project Workspace**
   
   --
   
@@ -120,8 +125,9 @@ left to right direction
   
   **User (System):**
   - Trellis User (Trellis Project Workspace)"
+
   usecase ImplementaNewMetamodel as "
-  Implement a New Meta-model
+  **Implement a New Meta-model**
   
   --
   
@@ -134,6 +140,7 @@ left to right direction
   **User (System):**
   - Trellis User (vscode IDE)"
 
+
   actor "Trellis User" as TrellisUser
 
   TrellisUser --> CreateModelSchema
@@ -144,4 +151,54 @@ left to right direction
   TrellisUser --> OrganizeProjectWorkspace
   TrellisUser --> ImplementaNewMetamodel
 
+@enduml
+
+@startuml System Diagram - Trellis Diagram Framework
+title Trellis Diagram Framework System Diagram
+left to right direction
+
+package "Visual Studio Code" as VisualStudioCode <<System>>
+package "Trellis" as Trellis <<System>>
+package "Filesystem" as Filesystem <<System>>
+
+actor "Trellis User" as TrellisUser
+
+TrellisUser --> VisualStudioCode: "**Trellis User**\n<<Uses>>\n**Visual Studio Code**\n\n- Create Model Schema\n- Create Output Template\n- Create Model Enrichment Script\n- Model Systems, Components, Use Cases, etc.\n- Implement a New Meta-model\n"
+TrellisUser --> Trellis: "**Trellis User**\n<<Uses>>\n**Trellis**\n\n- Generate Output Artifacts\n"
+TrellisUser --> Filesystem: "**Trellis User**\n<<Uses>>\n**Filesystem**\n\n- Organize Project Workspace\n"
+@enduml
+
+@startuml Component Diagram - Trellis Diagram Framework
+title Trellis Diagram Framework System Diagram
+left to right direction
+
+package "Visual Studio Code" as VisualStudioCode <<System>> {
+boundary "vscode IDE" as VisualStudioCode.vscodeIDE <<UI>>
+component "YAML Extension" as VisualStudioCode.YAMLExtension <<Service>>
+component "PlantUML Extension" as VisualStudioCode.PlantUMLExtension <<Service>>
+}
+package "Trellis" as Trellis <<System>> {
+boundary "Trellis CLI" as Trellis.TrellisCLI <<UI>>
+}
+package "Filesystem" as Filesystem <<System>> {
+folder "Trellis Project Workspace" as Filesystem.TrellisProjectWorkspace <<Folder>> {
+  file "Models" as Filesystem.TrellisProjectWorkspace.Models <<File>>
+  file "Schemas" as Filesystem.TrellisProjectWorkspace.Schemas <<File>>
+  file "Templates" as Filesystem.TrellisProjectWorkspace.Templates <<File>>
+  file "Processing Scripts" as Filesystem.TrellisProjectWorkspace.ProcessingScripts <<File>>
+}
+
+}
+
+actor "Trellis User" as TrellisUser
+
+TrellisUser --> VisualStudioCode.vscodeIDE: "**Trellis User**\n<<Uses>>\n**vscode IDE**\n\n- Create Model Schema\n- Create Output Template\n- Create Model Enrichment Script\n- Model Systems, Components, Use Cases, etc.\n- Implement a New Meta-model\n"
+TrellisUser --> Trellis.TrellisCLI: "**Trellis User**\n<<Uses>>\n**Trellis CLI**\n\n- Generate Output Artifacts\n"
+TrellisUser --> Filesystem.TrellisProjectWorkspace: "**Trellis User**\n<<Uses>>\n**Trellis Project Workspace**\n\n- Organize Project Workspace\n"
+VisualStudioCode.vscodeIDE --> VisualStudioCode.YAMLExtension: "**vscode IDE**\n<<Uses>>\n**YAML Extension**\n\n"
+VisualStudioCode.vscodeIDE --> VisualStudioCode.PlantUMLExtension: "**vscode IDE**\n<<Uses>>\n**PlantUML Extension**\n\n"
+Trellis.TrellisCLI --> Filesystem.TrellisProjectWorkspace.Models: "**Trellis CLI**\n<<Uses>>\n**Models**\n\n"
+Trellis.TrellisCLI --> Filesystem.TrellisProjectWorkspace.Schemas: "**Trellis CLI**\n<<Uses>>\n**Schemas**\n\n"
+Trellis.TrellisCLI --> Filesystem.TrellisProjectWorkspace.Templates: "**Trellis CLI**\n<<Uses>>\n**Templates**\n\n"
+Trellis.TrellisCLI --> Filesystem.TrellisProjectWorkspace.ProcessingScripts: "**Trellis CLI**\n<<Uses>>\n**Processing Scripts**\n\n"
 @enduml
