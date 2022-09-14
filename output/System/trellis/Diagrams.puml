@@ -13,7 +13,14 @@ title Trellis System Diagram
 title Trellis System Diagram
 
   package "Trellis" as Trellis <<System>> {
-    boundary "Trellis CLI" as Trellis.TrellisCLI <<UI>>
+    component "Trellis CLI" as Trellis.TrellisCLI <<UI>> {
+      component "Trellis Core" as Trellis.TrellisCLI.TrellisCore <<Service>> {
+        component "Handlebars" as Trellis.TrellisCLI.TrellisCore.Handlebars <<Service>>
+        component "JSON Schema $Ref Parser" as Trellis.TrellisCLI.TrellisCore.JSONSchema$RefParser <<Service>>
+      }
+      
+    }
+    
   }
   package "Filesystem" as Filesystem <<System>> {
     folder "Trellis Project Workspace" as Filesystem.TrellisProjectWorkspace <<Folder>> {

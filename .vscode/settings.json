@@ -3,6 +3,7 @@
     "./schemas/System.schema.json": "models/System/**/*.yaml",
     "./schemas/UseCaseModel.schema.json": "models/UseCaseModel/**/*.yaml",
     "./schemas/Actors.schema.json": "models/Actor/**/*.yaml",
-    "./schemas/Infrastructures.schema.json": "models/Infrastructure/**/*.yaml"
+    "./schemas/Infrastructures.schema.json": "models/Infrastructure/**/*.yaml",
+    "./schemas/Project.schema.json": "models/Project/**/*.yaml"
   }
 }
